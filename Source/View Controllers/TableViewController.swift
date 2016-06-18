@@ -8,21 +8,28 @@
 
 import UIKit
 
+let oldMoneyFormatter = NSNumberFormatter()
+let newMoneyFormatter = NSNumberFormatter()
+
 class TableViewController: UITableViewController {
-    @IBOutlet weak var oldMoneyText: UITextField!
-    @IBOutlet weak var newMoneyText: UITextField!
-    
     @IBInspectable
     var topGradientColor: UIColor = UIColor.whiteColor()
     @IBInspectable
     var bottomGradientColor: UIColor = UIColor.whiteColor()
+
+    @IBOutlet weak var oldMoneyText: UITextField!
+    @IBOutlet weak var newMoneyText: UITextField!
     
-    let oldMoneyFormatter = NSNumberFormatter()
-    let newMoneyFormatter = NSNumberFormatter()
+    @IBOutlet weak var usdCell: CurrencyCell!
+    @IBOutlet weak var eurCell: CurrencyCell!
+    @IBOutlet weak var rubCell: CurrencyCell!
+    
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         initMoneyFormatters()
         setTableViewBackgroundGradient(self, topGradientColor, bottomGradientColor)
@@ -57,6 +64,45 @@ class TableViewController: UITableViewController {
         sender.tableView.backgroundView = backgroundView
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        getCurrencies()
+    }
+
+    func getCurrencies() {
+        if usdCell != nil {
+            getUpdatesForCurrency(.USD, cell: usdCell)
+        }
+        if eurCell != nil {
+            getUpdatesForCurrency(.EUR, cell: eurCell)
+        }
+        if rubCell != nil {
+            getUpdatesForCurrency(.RUB, cell: rubCell)
+        }
+    }
+    
+    func getUpdatesForCurrency(currency: Currencies, cell: CurrencyCell) {
+        CurrenciesUpdater.getLastMonthCurrenciesRates(currency) { (result) in
+            switch result {
+            case .Success(let rates):
+                self.updateCurrencyCell(cell, rates: rates)
+                
+            case let .Error(message):
+                self.presentError(message)
+            }
+        }
+
+    }
+    
+    func updateCurrencyCell(cell: CurrencyCell, rates: RatesHistory) {
+        cell.currencyDescription.text = rates.currency.description
+        guard let rate = rates.latestRate else {
+            return
+        }
+        cell.setRatesOld(rate.rate, oldGrowth: rate.growth)
+    }
+    
     // MARK: - Actions
     
     @IBAction func oldMoneyChanged(sender: UITextField) {
@@ -94,7 +140,6 @@ class TableViewController: UITableViewController {
             }
         }
     }
-    
     
     // MARK: - Table View
     

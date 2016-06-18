@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F4E15FB0D4356F3B4D0D0A2 /* Pods_Denomination.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32DE8406C677B655D25D4FF2 /* Pods_Denomination.framework */; };
 		9D8ABDEF1D154D5C00760D51 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8ABDEE1D154D5C00760D51 /* StringExtensions.swift */; };
+		9D8ABDF21D15521700760D51 /* CurrenciesUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8ABDF11D15521700760D51 /* CurrenciesUpdater.swift */; };
+		9D8ABDF41D157D6C00760D51 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8ABDF31D157D6C00760D51 /* NSDateExtensions.swift */; };
+		9D8ABDF71D157E4F00760D51 /* CurrencyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8ABDF61D157E4F00760D51 /* CurrencyCell.swift */; };
+		9D8ABDFB1D158D1500760D51 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8ABDFA1D158D1500760D51 /* UIViewControllerExtensions.swift */; };
 		9D8C1F781D14891A0072F349 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8C1F771D14891A0072F349 /* AppDelegate.swift */; };
 		9D8C1F7D1D14891A0072F349 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D8C1F7B1D14891A0072F349 /* Main.storyboard */; };
 		9D8C1F7F1D14891A0072F349 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D8C1F7E1D14891A0072F349 /* Assets.xcassets */; };
@@ -16,7 +21,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		32DE8406C677B655D25D4FF2 /* Pods_Denomination.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Denomination.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D8ABDEE1D154D5C00760D51 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExtensions.swift; path = Source/Extensions/StringExtensions.swift; sourceTree = "<group>"; };
+		9D8ABDF11D15521700760D51 /* CurrenciesUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrenciesUpdater.swift; path = Source/Currencies/CurrenciesUpdater.swift; sourceTree = "<group>"; };
+		9D8ABDF31D157D6C00760D51 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSDateExtensions.swift; path = Source/Extensions/NSDateExtensions.swift; sourceTree = "<group>"; };
+		9D8ABDF61D157E4F00760D51 /* CurrencyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrencyCell.swift; path = "Source/Custom Cells/CurrencyCell.swift"; sourceTree = "<group>"; };
+		9D8ABDFA1D158D1500760D51 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewControllerExtensions.swift; path = Source/Extensions/UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		9D8C1F741D14891A0072F349 /* Denomination.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Denomination.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D8C1F771D14891A0072F349 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Denomination/AppDelegate.swift; sourceTree = "<group>"; };
 		9D8C1F7C1D14891A0072F349 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -24,6 +34,8 @@
 		9D8C1F811D14891A0072F349 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9D8C1F831D14891A0072F349 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D8C1F891D148CDF0072F349 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewController.swift; path = "Source/View Controllers/TableViewController.swift"; sourceTree = SOURCE_ROOT; };
+		AF9B39252FFC326917BFFF67 /* Pods-Denomination.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Denomination.release.xcconfig"; path = "Pods/Target Support Files/Pods-Denomination/Pods-Denomination.release.xcconfig"; sourceTree = "<group>"; };
+		B9CE766389A4FF40022A9453 /* Pods-Denomination.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Denomination.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Denomination/Pods-Denomination.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,18 +43,54 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F4E15FB0D4356F3B4D0D0A2 /* Pods_Denomination.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3AA47083993A00751E721391 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B9CE766389A4FF40022A9453 /* Pods-Denomination.debug.xcconfig */,
+				AF9B39252FFC326917BFFF67 /* Pods-Denomination.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		4DBC1374F4F15A10DFAF15CD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				32DE8406C677B655D25D4FF2 /* Pods_Denomination.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9D8ABDED1D154D3D00760D51 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				9D8ABDEE1D154D5C00760D51 /* StringExtensions.swift */,
+				9D8ABDF31D157D6C00760D51 /* NSDateExtensions.swift */,
+				9D8ABDFA1D158D1500760D51 /* UIViewControllerExtensions.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		9D8ABDF01D1551FD00760D51 /* Currencies */ = {
+			isa = PBXGroup;
+			children = (
+				9D8ABDF11D15521700760D51 /* CurrenciesUpdater.swift */,
+			);
+			name = Currencies;
+			sourceTree = "<group>";
+		};
+		9D8ABDF51D157E3200760D51 /* Custom Cells */ = {
+			isa = PBXGroup;
+			children = (
+				9D8ABDF61D157E4F00760D51 /* CurrencyCell.swift */,
+			);
+			name = "Custom Cells";
 			sourceTree = "<group>";
 		};
 		9D8C1F6B1D14891A0072F349 = {
@@ -51,6 +99,8 @@
 				9D8C1F8B1D148D060072F349 /* Source */,
 				9D8C1F761D14891A0072F349 /* Denomination */,
 				9D8C1F751D14891A0072F349 /* Products */,
+				3AA47083993A00751E721391 /* Pods */,
+				4DBC1374F4F15A10DFAF15CD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,6 +126,8 @@
 		9D8C1F8B1D148D060072F349 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				9D8ABDF51D157E3200760D51 /* Custom Cells */,
+				9D8ABDF01D1551FD00760D51 /* Currencies */,
 				9D8C1F771D14891A0072F349 /* AppDelegate.swift */,
 				9D8ABDED1D154D3D00760D51 /* Extensions */,
 				9D8C1F8C1D148D230072F349 /* View Controllers */,
@@ -98,9 +150,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9D8C1F861D14891A0072F349 /* Build configuration list for PBXNativeTarget "Denomination" */;
 			buildPhases = (
+				84067FA810F7292A4D60B459 /* 📦 Check Pods Manifest.lock */,
 				9D8C1F701D14891A0072F349 /* Sources */,
 				9D8C1F711D14891A0072F349 /* Frameworks */,
 				9D8C1F721D14891A0072F349 /* Resources */,
+				802C0559FE19EBECF8BA9707 /* 📦 Embed Pods Frameworks */,
+				08C036B656E54FD730308A41 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -158,14 +213,66 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		08C036B656E54FD730308A41 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Denomination/Pods-Denomination-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		802C0559FE19EBECF8BA9707 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Denomination/Pods-Denomination-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		84067FA810F7292A4D60B459 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9D8C1F701D14891A0072F349 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D8ABDF71D157E4F00760D51 /* CurrencyCell.swift in Sources */,
 				9D8ABDEF1D154D5C00760D51 /* StringExtensions.swift in Sources */,
 				9D8C1F8A1D148CDF0072F349 /* TableViewController.swift in Sources */,
+				9D8ABDF21D15521700760D51 /* CurrenciesUpdater.swift in Sources */,
+				9D8ABDF41D157D6C00760D51 /* NSDateExtensions.swift in Sources */,
 				9D8C1F781D14891A0072F349 /* AppDelegate.swift in Sources */,
+				9D8ABDFB1D158D1500760D51 /* UIViewControllerExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +385,7 @@
 		};
 		9D8C1F871D14891A0072F349 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B9CE766389A4FF40022A9453 /* Pods-Denomination.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -293,6 +401,7 @@
 		};
 		9D8C1F881D14891A0072F349 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AF9B39252FFC326917BFFF67 /* Pods-Denomination.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
