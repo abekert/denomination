@@ -1,25 +1,148 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G7a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GWZ-0j-VkW">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Table View Controller-->
+        <scene sceneID="ic1-vh-lwF">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                <tableViewController id="GWZ-0j-VkW" customClass="TableViewController" customModule="Denomination" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="static" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="ALg-Pw-1wz">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="sectionIndexColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection headerTitle="Калькулятор" id="90r-9S-JNy">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="204" id="G9O-WO-5ZE">
+                                        <rect key="frame" x="0.0" y="50" width="600" height="204"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="G9O-WO-5ZE" id="zkX-LT-0FM">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="204"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="НОВЫЕ ДЕНЬГИ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAa-yi-Njd">
+                                                    <rect key="frame" x="8" y="8" width="177" height="27"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="22" translatesAutoresizingMaskIntoConstraints="NO" id="UBw-hf-3Z3">
+                                                    <rect key="frame" x="8" y="43" width="584" height="50"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.14999999999999999" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad" keyboardAppearance="alert"/>
+                                                    <connections>
+                                                        <action selector="newMoneyChanged:" destination="GWZ-0j-VkW" eventType="editingChanged" id="cgJ-gu-G2l"/>
+                                                    </connections>
+                                                </textField>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="22" translatesAutoresizingMaskIntoConstraints="NO" id="dn4-cr-YKJ">
+                                                    <rect key="frame" x="8" y="138" width="584" height="50"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.14999999999999999" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="alert"/>
+                                                    <connections>
+                                                        <action selector="oldMoneyChanged:" destination="GWZ-0j-VkW" eventType="editingChanged" id="ziF-5c-fYI"/>
+                                                    </connections>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="СТАРЫЕ ДЕНЬГИ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zMh-sm-W2M">
+                                                    <rect key="frame" x="8" y="103" width="187" height="27"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstItem="UBw-hf-3Z3" firstAttribute="top" secondItem="lAa-yi-Njd" secondAttribute="bottom" constant="8" id="25w-vS-wIe"/>
+                                                <constraint firstItem="UBw-hf-3Z3" firstAttribute="height" secondItem="dn4-cr-YKJ" secondAttribute="height" id="3jQ-AM-4ax"/>
+                                                <constraint firstItem="dn4-cr-YKJ" firstAttribute="leading" secondItem="zkX-LT-0FM" secondAttribute="leadingMargin" id="BJx-AH-8YO"/>
+                                                <constraint firstItem="zMh-sm-W2M" firstAttribute="top" secondItem="UBw-hf-3Z3" secondAttribute="bottom" constant="10" id="ChG-z8-xl8"/>
+                                                <constraint firstItem="dn4-cr-YKJ" firstAttribute="top" secondItem="zMh-sm-W2M" secondAttribute="bottom" constant="8" id="FPK-UC-kgY"/>
+                                                <constraint firstItem="lAa-yi-Njd" firstAttribute="leading" secondItem="zkX-LT-0FM" secondAttribute="leadingMargin" id="MQ9-hE-FUH"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="dn4-cr-YKJ" secondAttribute="bottom" constant="8" id="O1U-TQ-tH4"/>
+                                                <constraint firstItem="dn4-cr-YKJ" firstAttribute="trailing" secondItem="zkX-LT-0FM" secondAttribute="trailingMargin" id="OcM-Tb-4XT"/>
+                                                <constraint firstItem="lAa-yi-Njd" firstAttribute="top" secondItem="dn4-cr-YKJ" secondAttribute="bottom" constant="8" id="P5a-Su-SQo"/>
+                                                <constraint firstItem="lAa-yi-Njd" firstAttribute="top" secondItem="zkX-LT-0FM" secondAttribute="topMargin" id="RYw-60-ear"/>
+                                                <constraint firstItem="zMh-sm-W2M" firstAttribute="top" secondItem="zkX-LT-0FM" secondAttribute="topMargin" id="XWy-WO-53O"/>
+                                                <constraint firstItem="UBw-hf-3Z3" firstAttribute="trailing" secondItem="zkX-LT-0FM" secondAttribute="trailingMargin" id="aAD-gt-CKL"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="UBw-hf-3Z3" secondAttribute="bottom" constant="8" id="bC9-EO-DIo"/>
+                                                <constraint firstItem="dn4-cr-YKJ" firstAttribute="top" secondItem="zMh-sm-W2M" secondAttribute="bottom" constant="8" id="bLc-wK-5XY"/>
+                                                <constraint firstItem="zMh-sm-W2M" firstAttribute="top" secondItem="UBw-hf-3Z3" secondAttribute="bottom" constant="8" id="c7U-Pa-BbF"/>
+                                                <constraint firstItem="UBw-hf-3Z3" firstAttribute="top" secondItem="lAa-yi-Njd" secondAttribute="bottom" constant="8" id="euE-FZ-sIu"/>
+                                                <constraint firstItem="UBw-hf-3Z3" firstAttribute="leading" secondItem="zkX-LT-0FM" secondAttribute="leadingMargin" id="g30-Qo-5Zy"/>
+                                                <constraint firstItem="zMh-sm-W2M" firstAttribute="leading" secondItem="zkX-LT-0FM" secondAttribute="leadingMargin" id="ixN-Lq-P1z"/>
+                                                <constraint firstItem="UBw-hf-3Z3" firstAttribute="top" secondItem="lAa-yi-Njd" secondAttribute="bottom" constant="8" id="tfQ-RD-Nyv"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="P5a-Su-SQo"/>
+                                                    <exclude reference="25w-vS-wIe"/>
+                                                    <exclude reference="bC9-EO-DIo"/>
+                                                    <exclude reference="tfQ-RD-Nyv"/>
+                                                    <exclude reference="XWy-WO-53O"/>
+                                                    <exclude reference="c7U-Pa-BbF"/>
+                                                    <exclude reference="bLc-wK-5XY"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Курсы валют" id="oJt-mq-bgS" userLabel="Курсы валют">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="EMT-cN-QH2">
+                                        <rect key="frame" x="0.0" y="305" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EMT-cN-QH2" id="yRi-HM-B1J">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Денежки" id="h0o-s4-RB6" userLabel="Курсы валют">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Fdy-Yn-TUG">
+                                        <rect key="frame" x="0.0" y="400" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fdy-Yn-TUG" id="9kn-iZ-Qzz">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="GWZ-0j-VkW" id="xLQ-Qk-Bal"/>
+                            <outlet property="delegate" destination="GWZ-0j-VkW" id="IVT-E5-oWj"/>
+                        </connections>
+                    </tableView>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="topGradientColor">
+                            <color key="value" red="0.92056714210553325" green="0.65112168882858312" blue="0.57482490615052151" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="bottomGradientColor">
+                            <color key="value" red="0.46570271596858637" green="0.28610998439513752" blue="0.2524842942840399" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="newMoneyText" destination="UBw-hf-3Z3" id="THT-sj-XsH"/>
+                        <outlet property="oldMoneyText" destination="dn4-cr-YKJ" id="RZn-IO-U08"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eMw-xo-IZ1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-464" y="413"/>
         </scene>
     </scenes>
 </document>

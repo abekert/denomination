@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>Деноминация</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -11,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
+	<string>Деноминация</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -30,11 +32,13 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIRequiresFullScreen</key>
+	<true/>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
