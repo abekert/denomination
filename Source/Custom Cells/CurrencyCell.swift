@@ -20,12 +20,25 @@ class CurrencyCell: UITableViewCell {
     @IBOutlet weak var oldGrowth: UILabel!
     @IBOutlet weak var oldGrowthIcon: UIImageView!
     
+    var oldMoneyFormatter: NSNumberFormatter?
+    var newMoneyFormatter: NSNumberFormatter?
+    
     func setRatesOld(oldRate: Double, oldGrowth: Double) {
-        self.oldRate.text = oldMoneyFormatter.stringFromNumber(oldRate)
-        self.oldGrowth.text = oldMoneyFormatter.stringFromNumber(oldGrowth)
+        if let formatter = oldMoneyFormatter {
+            self.oldRate.text = formatter.stringFromNumber(oldRate)
+            self.oldGrowth.text = formatter.stringFromNumber(oldGrowth)
+        } else {
+            self.oldRate.text = oldRate.description
+            self.oldGrowth.text = oldGrowth.description
+        }
         
-        self.newRate.text = newMoneyFormatter.stringFromNumber(oldRate / 10000.0)
-        self.newGrowth.text = newMoneyFormatter.stringFromNumber(oldGrowth / 10000.0)
+        if let formatter = newMoneyFormatter {
+            self.newRate.text = formatter.stringFromNumber(oldRate / 10000.0)
+            self.newGrowth.text = formatter.stringFromNumber(oldGrowth / 10000.0)
+        } else {
+            self.newRate.text = String(oldRate / 10000.0)
+            self.newGrowth.text = String(oldGrowth / 10000.0)
+        }
     }
 }
 

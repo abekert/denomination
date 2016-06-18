@@ -8,8 +8,6 @@
 
 import UIKit
 
-let oldMoneyFormatter = NSNumberFormatter()
-let newMoneyFormatter = NSNumberFormatter()
 
 class TableViewController: UITableViewController {
     @IBInspectable
@@ -24,7 +22,9 @@ class TableViewController: UITableViewController {
     @IBOutlet weak var eurCell: CurrencyCell!
     @IBOutlet weak var rubCell: CurrencyCell!
     
-    
+    let oldMoneyFormatter = NSNumberFormatter()
+    let newMoneyFormatter = NSNumberFormatter()
+
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
