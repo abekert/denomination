@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8F4E15FB0D4356F3B4D0D0A2 /* Pods_Denomination.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32DE8406C677B655D25D4FF2 /* Pods_Denomination.framework */; };
+		9D5E14AF1D14B96400736E33 /* PaddingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5E14AE1D14B96400736E33 /* PaddingTextField.swift */; };
 		9D8ABDEF1D154D5C00760D51 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8ABDEE1D154D5C00760D51 /* StringExtensions.swift */; };
 		9D8ABDF21D15521700760D51 /* CurrenciesUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8ABDF11D15521700760D51 /* CurrenciesUpdater.swift */; };
 		9D8ABDF41D157D6C00760D51 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8ABDF31D157D6C00760D51 /* NSDateExtensions.swift */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		32DE8406C677B655D25D4FF2 /* Pods_Denomination.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Denomination.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D5E14AE1D14B96400736E33 /* PaddingTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaddingTextField.swift; path = Source/Extensions/PaddingTextField.swift; sourceTree = "<group>"; };
 		9D8ABDEE1D154D5C00760D51 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExtensions.swift; path = Source/Extensions/StringExtensions.swift; sourceTree = "<group>"; };
 		9D8ABDF11D15521700760D51 /* CurrenciesUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrenciesUpdater.swift; path = Source/Currencies/CurrenciesUpdater.swift; sourceTree = "<group>"; };
 		9D8ABDF31D157D6C00760D51 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSDateExtensions.swift; path = Source/Extensions/NSDateExtensions.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				9D8ABDEE1D154D5C00760D51 /* StringExtensions.swift */,
 				9D8ABDF31D157D6C00760D51 /* NSDateExtensions.swift */,
 				9D8ABDFA1D158D1500760D51 /* UIViewControllerExtensions.swift */,
+				9D5E14AE1D14B96400736E33 /* PaddingTextField.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -150,12 +153,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9D8C1F861D14891A0072F349 /* Build configuration list for PBXNativeTarget "Denomination" */;
 			buildPhases = (
-				84067FA810F7292A4D60B459 /* 📦 Check Pods Manifest.lock */,
+				84067FA810F7292A4D60B459 /* [CP] Check Pods Manifest.lock */,
 				9D8C1F701D14891A0072F349 /* Sources */,
 				9D8C1F711D14891A0072F349 /* Frameworks */,
 				9D8C1F721D14891A0072F349 /* Resources */,
-				802C0559FE19EBECF8BA9707 /* 📦 Embed Pods Frameworks */,
-				08C036B656E54FD730308A41 /* 📦 Copy Pods Resources */,
+				802C0559FE19EBECF8BA9707 /* [CP] Embed Pods Frameworks */,
+				08C036B656E54FD730308A41 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -214,14 +217,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		08C036B656E54FD730308A41 /* 📦 Copy Pods Resources */ = {
+		08C036B656E54FD730308A41 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,14 +232,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Denomination/Pods-Denomination-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		802C0559FE19EBECF8BA9707 /* 📦 Embed Pods Frameworks */ = {
+		802C0559FE19EBECF8BA9707 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -244,14 +247,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Denomination/Pods-Denomination-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		84067FA810F7292A4D60B459 /* 📦 Check Pods Manifest.lock */ = {
+		84067FA810F7292A4D60B459 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D8ABDF71D157E4F00760D51 /* CurrencyCell.swift in Sources */,
+				9D5E14AF1D14B96400736E33 /* PaddingTextField.swift in Sources */,
 				9D8ABDEF1D154D5C00760D51 /* StringExtensions.swift in Sources */,
 				9D8C1F8A1D148CDF0072F349 /* TableViewController.swift in Sources */,
 				9D8ABDF21D15521700760D51 /* CurrenciesUpdater.swift in Sources */,
@@ -395,7 +399,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = by.denomination;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "dfe76f0a-6633-46bf-9ab6-9a4ff8b869cf";
 			};
 			name = Debug;
 		};
@@ -411,7 +415,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = by.denomination;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "dfe76f0a-6633-46bf-9ab6-9a4ff8b869cf";
 			};
 			name = Release;
 		};

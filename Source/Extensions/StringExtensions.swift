@@ -9,7 +9,7 @@
 import Foundation
 
 extension String {
-    static let charset = NSCharacterSet(charactersInString: "1234567890.,").invertedSet
+    static let charset = NSCharacterSet(charactersInString: "1234567890.,-").invertedSet
     
     func clearNumericString() -> String {
         return self.componentsSeparatedByCharactersInSet(String.charset).joinWithSeparator("")
