@@ -121,9 +121,11 @@ class TableViewController: UITableViewController {
             switch result {
             case .Success(let rates):
                 self.updateCurrencyCell(cell, rates: rates)
-                
-            case let .Error(message):
-                self.presentError(message)
+
+//            case let .Error(message):
+//                self.presentError(message)
+            default:
+                break
             }
         }
     }
