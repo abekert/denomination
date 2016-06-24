@@ -181,26 +181,24 @@ class TableViewController: UITableViewController {
             return
         }
         
-        guard let inputText = activeTextField?.text else {
-            print("Can't parse arguments")
+        guard let textField = activeTextField, inputText = textField.text else {
+            print("Active text field was not set to put operation result")
             return
         }
+
+        let formatter = textField === oldMoneyText ? oldMoneyFormatter : newMoneyFormatter
         
+        pendingOperation = nil
+        operationResult.title = ""
+
         let arguments = parseArguments(inputText)
         let first = arguments.firstArgument
         guard let second = arguments.secondArgument else {
+            textField.text = formatter.stringFromNumber(first)
             return
         }
         
         let result = operation(first, second)
-        pendingOperation = nil
-        operationResult.title = ""
-        
-        guard let textField = activeTextField else {
-            print("Active text field was not set to put operation result")
-            return
-        }
-        let formatter = textField === oldMoneyText ? oldMoneyFormatter : newMoneyFormatter
         textField.text = formatter.stringFromNumber(result)
     }
 
@@ -251,7 +249,7 @@ class TableViewController: UITableViewController {
                 return
             }
             
-            oldMoneyText.text = "\(firstPart) \(sign)"
+            oldMoneyText.text = "\(firstPart) \(sign) "
             return
         }
 
@@ -265,18 +263,56 @@ class TableViewController: UITableViewController {
             return
         }
         
-        let separatorsCount = text.CountOccurrences("\(separator)")
-        let maxAvailableSeparators = pendingOperation != nil ? 2 : 1
+        let arguments = parseArguments(text)
+        print("Arguments: \(arguments)")
+
         if  lastSymbol == separator {
+            if text.characters.count == 1 {
+                newMoneyText.text = "0\(separator)"
+                return
+            }
+            let separatorsCount = text.CountOccurrences("\(separator)")
+            let maxAvailableSeparators = arguments.operationSign != nil ? arguments.firstArgument.hasDecimalPart() ? 2 : 1 : 1
+
             if separatorsCount > maxAvailableSeparators {
-                // Second decimal separator
+                // Extra decimal separator
                 newMoneyText.text = text.substringToIndex (text.endIndex.predecessor())
             }
             return
         }
         
-        let arguments = parseArguments(text)
-        print("Arguments: \(arguments)")
+        let currentArgument = arguments.secondArgument != nil ? arguments.secondArgument! : arguments.firstArgument
+        let decimalPartLength = currentArgument.decimalPartLength()
+        print(decimalPartLength)
+        if decimalPartLength > newMoneyFormatter.maximumFractionDigits {
+            // Extra decimal value
+            newMoneyText.text = text.substringToIndex (text.endIndex.predecessor())
+            return
+        }
+        
+        if lastSymbol == "0" {
+            if text.characters.count < 2 {
+                return
+            }
+            let preLast = text.characters[text.endIndex.advancedBy(-2)]
+            if preLast == separator {
+                return
+            }
+            
+            if text.characters.count == 2 && preLast == "0" {
+                newMoneyText.text = text.substringToIndex (text.endIndex.predecessor())
+                return
+            }
+
+            if text.characters.count < 3 {
+                return
+            }
+            let prePreLast = text.characters[text.endIndex.advancedBy(-3)]
+            if prePreLast == separator && preLast != "0" {
+                newMoneyText.text = text.substringToIndex (text.endIndex.predecessor())
+                return
+            }
+        }
         
         operationResult.title = ""
         guard let firstPart = newMoneyFormatter.stringFromNumber(arguments.firstArgument) else {
@@ -298,7 +334,7 @@ class TableViewController: UITableViewController {
                 return
             }
             
-            newMoneyText.text = "\(firstPart) \(sign)"
+            newMoneyText.text = "\(firstPart) \(sign) "
             return
         }
 
@@ -306,6 +342,10 @@ class TableViewController: UITableViewController {
             newMoneyText.text = firstPart
         }
         oldMoneyText.text = oldMoneyFormatter.stringFromNumber(arguments.firstArgument * 10000)
+    }
+    
+    private func inputIsValid(input: String) -> Bool {
+        return true
     }
     
     private func parseArguments(inputString: String) -> (firstArgument: Double, secondArgument: Double?, operationSign: Character?) {
@@ -317,7 +357,7 @@ class TableViewController: UITableViewController {
         
         let operationSign = inputString[range.startIndex]
         let firstArgument = parseSingleArgument(inputString.substringToIndex(range.startIndex.predecessor()))
-        if range.startIndex.distanceTo(inputString.endIndex) < 2 {
+        if range.startIndex.distanceTo(inputString.endIndex) < 3 {
             return (firstArgument, nil, operationSign)
         }
         let secondArgument = parseSingleArgument(inputString.substringFromIndex(range.startIndex.successor()))
@@ -325,9 +365,11 @@ class TableViewController: UITableViewController {
     }
     
     private func parseSingleArgument(inputString: String) -> Double {
-        if let parsed = Double(inputString.clearNumericString()) {
+        let formatter = NSNumberFormatter()
+        if let parsed = formatter.numberFromString(inputString.clearNumericString())?.doubleValue {
             return parsed
         }
+        
         return 0
     }
 
@@ -356,4 +398,22 @@ class TableViewController: UITableViewController {
 //        }
 //    }
     
+}
+
+extension Double {
+    func hasDecimalPart() -> Bool {
+        return self % 1 != 0
+    }
+    
+    func decimalPartLength() -> Int {
+        let str = String(self)
+        if str.characters.last == "0" {
+            return 0
+        }
+        let separators = NSCharacterSet(charactersInString:",.")
+        guard let range = str.rangeOfCharacterFromSet(separators) else {
+            return 0
+        }
+        return range.startIndex.distanceTo(str.endIndex) - 1
+    }
 }
