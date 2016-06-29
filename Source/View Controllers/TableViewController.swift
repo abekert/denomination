@@ -74,10 +74,22 @@ class TableViewController: UITableViewController {
     func initCurrenciesCells() {
         if usdCell != nil {
             usdCell.oldMoneyFormatter = oldMoneyFormatter
+            let newFormatter = NSNumberFormatter ()
+            newFormatter.minimumIntegerDigits = 1
+            newFormatter.maximumFractionDigits = 4
+            newFormatter.usesGroupingSeparator = true
+            newFormatter.groupingSeparator = "\u{2008}"
+            usdCell.newMoneyFormatter = newFormatter
         }
         
         if eurCell != nil {
             eurCell.oldMoneyFormatter = oldMoneyFormatter
+            let newFormatter = NSNumberFormatter ()
+            newFormatter.minimumIntegerDigits = 1
+            newFormatter.maximumFractionDigits = 4
+            newFormatter.usesGroupingSeparator = true
+            newFormatter.groupingSeparator = "\u{2008}"
+            eurCell.newMoneyFormatter = newFormatter
         }
         
         if rubCell != nil {
@@ -379,7 +391,7 @@ class TableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 1 {
-            return "Курсы валют за " + NSDate().shortShortDescription
+            return "Курсы валют НБРБ за " + NSDate().shortShortDescription
         }
         
         return super.tableView(tableView, titleForHeaderInSection: section)
