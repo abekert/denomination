@@ -306,13 +306,12 @@ class TableViewController: UITableViewController {
                 return
             }
 
-            if text.characters.count < 3 {
-                return
-            }
-            let prePreLast = text.characters[text.endIndex.advancedBy(-3)]
-            if prePreLast == separator && preLast != "0" {
-                newMoneyText.text = text.substringToIndex (text.endIndex.predecessor())
-                return
+            if text.characters.count >= 3 {
+                let prePreLast = text.characters[text.endIndex.advancedBy(-3)]
+                if prePreLast == separator && preLast != "0" {
+                    newMoneyText.text = text.substringToIndex (text.endIndex.predecessor())
+                    return
+                }
             }
         }
         
