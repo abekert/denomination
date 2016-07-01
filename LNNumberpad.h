@@ -32,5 +32,6 @@
 
 // The one and only LNNumberpad instance you should ever need:
 + (LNNumberpad *)defaultLNNumberpad;
+@property (nonatomic, assign) BOOL decimalSeparatorHidden;
 
 @end

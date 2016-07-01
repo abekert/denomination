@@ -33,6 +33,7 @@
 @interface LNNumberpad ()
 
 @property (nonatomic, weak) UIResponder <UITextInput> *targetTextInput;
+@property (nonatomic, weak) IBOutlet UIButton *separatorSignButton;
 
 @end
 
@@ -40,7 +41,7 @@
 
 @implementation LNNumberpad
 
-@synthesize targetTextInput;
+@synthesize targetTextInput, separatorSignButton, decimalSeparatorHidden;
 
 #pragma mark - Shared LNNumberpad method
 
@@ -61,6 +62,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self addObservers];
+        [self setupSeparatorButton];
     }
     return self;
 }
@@ -69,8 +71,17 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self addObservers];
+        [self setupSeparatorButton];
     }
     return self;
+}
+
+- (void)setupSeparatorButton {
+    if (separatorSignButton == nil) {
+        return;
+    }
+    NSNumberFormatter *formatter = [NSNumberFormatter new];
+    separatorSignButton.titleLabel.text = formatter.decimalSeparator;
 }
 
 - (void)addObservers {
@@ -119,6 +130,9 @@
             self.targetTextInput = notification.object;
             return;
         }
+    }
+    if (separatorSignButton != nil) {
+        separatorSignButton.hidden = decimalSeparatorHidden;
     }
     
     // Not a valid target for us to worry about.

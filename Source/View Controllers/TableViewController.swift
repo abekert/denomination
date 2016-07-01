@@ -258,6 +258,10 @@ class TableViewController: UITableViewController {
         }
 
         if let operation = pendingOperation, sign = arguments.operationSign {
+            if arguments.wantsToRemoveOperation {
+                finishComplicatedOperation()
+                return
+            }
             if let secondArgument = arguments.secondArgument {
                 let result = operation(arguments.firstArgument, secondArgument)
                 operationResult.title = "= \(oldMoneyFormatter.stringFromNumber(result)!)"
@@ -288,7 +292,7 @@ class TableViewController: UITableViewController {
         let arguments = parseArguments(text)
         print("Arguments: \(arguments)")
 
-        if  lastSymbol == separator {
+        if lastSymbol == separator {
             if text.characters.count == 1 {
                 newMoneyText.text = "0\(separator)"
                 return
@@ -298,17 +302,17 @@ class TableViewController: UITableViewController {
 
             if separatorsCount > maxAvailableSeparators {
                 // Extra decimal separator
-                newMoneyText.text = text.substringToIndex (text.endIndex.predecessor())
+                newMoneyText.text = text.substringToIndex(text.endIndex.predecessor())
             }
             return
         }
         
         let currentArgument = arguments.secondArgument != nil ? arguments.secondArgument! : arguments.firstArgument
         let decimalPartLength = currentArgument.decimalPartLength()
-        print(decimalPartLength)
+
         if decimalPartLength > newMoneyFormatter.maximumFractionDigits {
             // Extra decimal value
-            newMoneyText.text = text.substringToIndex (text.endIndex.predecessor())
+            newMoneyText.text = text.substringToIndex(text.endIndex.predecessor())
             return
         }
         
@@ -369,20 +373,22 @@ class TableViewController: UITableViewController {
         return true
     }
     
-    private func parseArguments(inputString: String) -> (firstArgument: Double, secondArgument: Double?, operationSign: Character?) {
+    private func parseArguments(inputString: String) -> (firstArgument: Double, secondArgument: Double?, operationSign: Character?, wantsToRemoveOperation: Bool) {
         let operations = NSCharacterSet(charactersInString:"+–")
         guard let range = inputString.rangeOfCharacterFromSet(operations) else {
             print("Can't find operation symbol")
-            return (parseSingleArgument(inputString), nil, nil)
+            return (parseSingleArgument(inputString), nil, nil, false)
         }
         
         let operationSign = inputString[range.startIndex]
         let firstArgument = parseSingleArgument(inputString.substringToIndex(range.startIndex.predecessor()))
-        if range.startIndex.distanceTo(inputString.endIndex) < 3 {
-            return (firstArgument, nil, operationSign)
+        let distanceToEnd = range.startIndex.distanceTo(inputString.endIndex)
+        if distanceToEnd < 3 {
+            return (firstArgument, nil, operationSign, distanceToEnd < 2)
         }
+        
         let secondArgument = parseSingleArgument(inputString.substringFromIndex(range.startIndex.successor()))
-        return (firstArgument, secondArgument, operationSign)
+        return (firstArgument, secondArgument, operationSign, false)
     }
     
     private func parseSingleArgument(inputString: String) -> Double {
@@ -406,9 +412,9 @@ class TableViewController: UITableViewController {
     }
     
 
-//    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-//        cell.backgroundColor = UIColor.clearColor()
-//    }
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.backgroundColor = UIColor.clearColor()
+    }
     
     
 //    override func viewWillLayoutSubviews() {
