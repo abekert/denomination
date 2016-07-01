@@ -35,14 +35,12 @@ class TableViewController: UITableViewController {
         
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         initMoneyFormatters()
+        initTextFields()
         setTableViewBackgroundGradient(self, topGradientColor, bottomGradientColor)
         initCurrenciesCells ()
-        
-        oldMoneyText.inputAccessoryView = keyboardToolbar
-        newMoneyText.inputAccessoryView = keyboardToolbar
     }
 
-    func initMoneyFormatters() {
+    private func initMoneyFormatters() {
         oldMoneyFormatter.currencyCode = "BYR"
         oldMoneyFormatter.maximumFractionDigits = 0
         oldMoneyFormatter.minimumIntegerDigits = 1
@@ -54,6 +52,16 @@ class TableViewController: UITableViewController {
         newMoneyFormatter.minimumIntegerDigits = 1
         newMoneyFormatter.usesGroupingSeparator = true
         newMoneyFormatter.groupingSeparator = "\u{2008}"
+    }
+    
+    private func initTextFields() {
+        oldMoneyText.inputAccessoryView = keyboardToolbar
+        newMoneyText.inputAccessoryView = keyboardToolbar
+
+        if (UI_USER_INTERFACE_IDIOM() == .Pad) {
+            oldMoneyText.inputView = LNNumberpad.defaultLNNumberpad ()
+            newMoneyText.inputView = LNNumberpad.defaultLNNumberpad ()
+        }
     }
     
     var gradientLayer: CAGradientLayer!
