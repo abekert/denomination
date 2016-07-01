@@ -86,7 +86,7 @@ class CurrenciesUpdater {
     class func getCurrenciesRates(currency: Currencies, from: NSDate, to: NSDate, completion: GetCurrenciesResult -> Void) {
         
         let request = "http://www.nbrb.by/Services/XmlExRatesDyn.aspx?curId=\(currency.code)&fromDate=\(from.nbrbDescription())&toDate=\(to.nbrbDescription())"
-        
+        print (request)
         guard let url = NSURL(string: request) else {
             let message = "Can't create URL from string: \(request)"
             print(message)

@@ -147,7 +147,7 @@ class TableViewController: UITableViewController {
         guard let rate = rates.latestRate else {
             return
         }
-        cell.setRatesOld(rate.rate, oldGrowth: rate.growth)
+        cell.setRatesNew(rate.rate, newGrowth: rate.growth)
     }
     
     // MARK: - Keyboard

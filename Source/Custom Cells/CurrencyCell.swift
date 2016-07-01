@@ -48,6 +48,12 @@ class CurrencyCell: UITableViewCell {
         setRates(newRate, rate: oldRate / 10000.0, growthLabel: newGrowth, growth: oldGrowth / 10000.0, numberFormatter: newMoneyFormatter)
     }
     
+    func setRatesNew(newRate: Double, newGrowth: Double) {
+        setRates(self.oldRate, rate: newRate * 10000, growthLabel: self.oldGrowth, growth: newGrowth * 10000, numberFormatter: oldMoneyFormatter)
+        setRates(self.newRate, rate: newRate, growthLabel: self.newGrowth, growth: newGrowth, numberFormatter: newMoneyFormatter)
+    }
+
+    
     private func setRates(rateLabel: UILabel, rate: Double, growthLabel: UILabel, growth: Double, numberFormatter: NSNumberFormatter?) {
         if let formatter = numberFormatter {
             rateLabel.text = formatter.stringFromNumber(rate)
