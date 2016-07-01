@@ -55,6 +55,7 @@ class TableViewController: UITableViewController {
     }
     
     private func initTextFields() {
+        operationResult.title = ""
         oldMoneyText.inputAccessoryView = keyboardToolbar
         newMoneyText.inputAccessoryView = keyboardToolbar
 
@@ -233,13 +234,13 @@ class TableViewController: UITableViewController {
     }
     
     @IBAction func didFinishEditing(sender: UITextField) {
-        activeTextField = nil
         let s = sender === oldMoneyText ? "old" : "new"
         print("didFinishEditing \(s)")
         
         if pendingOperation != nil {
             finishComplicatedOperation()
         }
+        activeTextField = nil
     }
     
     @IBAction func oldMoneyChanged(sender: UITextField) {
@@ -303,7 +304,10 @@ class TableViewController: UITableViewController {
             if separatorsCount > maxAvailableSeparators {
                 // Extra decimal separator
                 newMoneyText.text = text.substringToIndex(text.endIndex.predecessor())
+                return
             }
+            
+            updateOldMoneyTextFromNewArguments(arguments)
             return
         }
         
@@ -322,11 +326,13 @@ class TableViewController: UITableViewController {
             }
             let preLast = text.characters[text.endIndex.advancedBy(-2)]
             if preLast == separator {
+                updateOldMoneyTextFromNewArguments(arguments)
                 return
             }
             
             if text.characters.count == 2 && preLast == "0" {
                 newMoneyText.text = text.substringToIndex (text.endIndex.predecessor())
+                updateOldMoneyTextFromNewArguments(arguments)
                 return
             }
 
@@ -334,6 +340,7 @@ class TableViewController: UITableViewController {
                 let prePreLast = text.characters[text.endIndex.advancedBy(-3)]
                 if prePreLast == separator && preLast != "0" {
                     newMoneyText.text = text.substringToIndex (text.endIndex.predecessor())
+                    updateOldMoneyTextFromNewArguments(arguments)
                     return
                 }
             }
@@ -346,6 +353,10 @@ class TableViewController: UITableViewController {
         }
         
         if let operation = pendingOperation, sign = arguments.operationSign {
+            if arguments.wantsToRemoveOperation {
+                finishComplicatedOperation()
+                return
+            }
             if let secondArgument = arguments.secondArgument {
                 let result = operation(arguments.firstArgument, secondArgument)
                 operationResult.title = "= \(newMoneyFormatter.stringFromNumber(result)!)"
@@ -369,26 +380,53 @@ class TableViewController: UITableViewController {
         oldMoneyText.text = oldMoneyFormatter.stringFromNumber(arguments.firstArgument * 10000)
     }
     
-    private func inputIsValid(input: String) -> Bool {
-        return true
+    private func updateOldMoneyTextFromNewArguments(arguments: ParseResult) {
+        if let operation = pendingOperation, secondArgument = arguments.secondArgument {
+            let result = operation(arguments.firstArgument, secondArgument)
+            operationResult.title = "= \(newMoneyFormatter.stringFromNumber(result)!)"
+            oldMoneyText.text = oldMoneyFormatter.stringFromNumber(result * 10000.0)
+            return
+        }
+        oldMoneyText.text = oldMoneyFormatter.stringFromNumber(arguments.firstArgument * 10000)
     }
     
-    private func parseArguments(inputString: String) -> (firstArgument: Double, secondArgument: Double?, operationSign: Character?, wantsToRemoveOperation: Bool) {
+    class ParseResult {
+        let firstArgument: Double
+        let secondArgument: Double?
+        let operationSign: Character?
+        let wantsToRemoveOperation: Bool
+        
+        init(firstArgument: Double) {
+            self.firstArgument = firstArgument
+            secondArgument = nil
+            operationSign = nil
+            wantsToRemoveOperation = false
+        }
+        
+        init(firstArgument: Double, secondArgument: Double?, operationSign: Character, wantsToRemoveOperation: Bool = false) {
+            self.firstArgument = firstArgument
+            self.secondArgument = secondArgument
+            self.operationSign = operationSign
+            self.wantsToRemoveOperation = wantsToRemoveOperation
+        }
+    }
+    
+    private func parseArguments(inputString: String) -> ParseResult {
         let operations = NSCharacterSet(charactersInString:"+–")
         guard let range = inputString.rangeOfCharacterFromSet(operations) else {
             print("Can't find operation symbol")
-            return (parseSingleArgument(inputString), nil, nil, false)
+            return ParseResult(firstArgument:parseSingleArgument(inputString))
         }
         
         let operationSign = inputString[range.startIndex]
         let firstArgument = parseSingleArgument(inputString.substringToIndex(range.startIndex.predecessor()))
         let distanceToEnd = range.startIndex.distanceTo(inputString.endIndex)
         if distanceToEnd < 3 {
-            return (firstArgument, nil, operationSign, distanceToEnd < 2)
+            return ParseResult(firstArgument: firstArgument, secondArgument: nil, operationSign: operationSign, wantsToRemoveOperation: distanceToEnd < 2)
         }
         
         let secondArgument = parseSingleArgument(inputString.substringFromIndex(range.startIndex.successor()))
-        return (firstArgument, secondArgument, operationSign, false)
+        return ParseResult(firstArgument: firstArgument, secondArgument: secondArgument, operationSign: operationSign, wantsToRemoveOperation: false)
     }
     
     private func parseSingleArgument(inputString: String) -> Double {
