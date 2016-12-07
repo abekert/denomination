@@ -174,7 +174,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9D8C1F861D14891A0072F349 /* Build configuration list for PBXNativeTarget "Denomination" */;
 			buildPhases = (
-				832725DC23B50644F2AE68EA /* 📦 Check Pods Manifest.lock */,
+				832725DC23B50644F2AE68EA /* [CP] Check Pods Manifest.lock */,
 				84067FA810F7292A4D60B459 /* [CP] Check Pods Manifest.lock */,
 				9D8C1F701D14891A0072F349 /* Sources */,
 				9D8C1F711D14891A0072F349 /* Frameworks */,
@@ -200,12 +200,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Alexander Bekert";
 				TargetAttributes = {
 					9D8C1F731D14891A0072F349 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = MLXPDYN59V;
+						LastSwiftMigration = 0810;
 					};
 				};
 			};
@@ -287,19 +288,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Denomination/Pods-Denomination-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		832725DC23B50644F2AE68EA /* 📦 Check Pods Manifest.lock */ = {
+		832725DC23B50644F2AE68EA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		84067FA810F7292A4D60B459 /* [CP] Check Pods Manifest.lock */ = {
@@ -388,8 +389,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -434,8 +437,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -454,6 +459,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -463,6 +469,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B9CE766389A4FF40022A9453 /* Pods-Denomination.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -475,6 +482,7 @@
 				PROVISIONING_PROFILE = "dfe76f0a-6633-46bf-9ab6-9a4ff8b869cf";
 				SWIFT_OBJC_BRIDGING_HEADER = "Denomination-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -482,6 +490,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AF9B39252FFC326917BFFF67 /* Pods-Denomination.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -493,6 +502,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "dfe76f0a-6633-46bf-9ab6-9a4ff8b869cf";
 				SWIFT_OBJC_BRIDGING_HEADER = "Denomination-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

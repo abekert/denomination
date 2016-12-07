@@ -13,9 +13,9 @@ class UIOutlinedLabel: UILabel {
     @IBInspectable
     var outlineWidth: CGFloat = 1
     @IBInspectable
-    var outlineColor: UIColor = UIColor.whiteColor()
+    var outlineColor: UIColor = UIColor.white
     
-    override func drawTextInRect(rect: CGRect) {
+    override func drawText(in rect: CGRect) {
 //        self.layer.borderColor = outlineColor.CGColor
 //        self.layer.borderWidth = outlineWidth
 //        super.drawTextInRect(rect)
