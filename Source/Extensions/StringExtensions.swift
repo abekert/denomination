@@ -11,12 +11,12 @@ import Foundation
 extension String {
     static let charset = CharacterSet(charactersIn: "1234567890.,-").inverted
     
-    func clearNumericString() -> String {
+    var clearNumericString: String {
         return self.components(separatedBy:(String.charset)).joined()
     }
     
-    func CountOccurrences(ofWhat: String) -> Int {
-        let tok = self.components(separatedBy: ofWhat)
+    func countOccurrences(of what: String) -> Int {
+        let tok = self.components(separatedBy: what)
         return tok.count - 1
     }
 }

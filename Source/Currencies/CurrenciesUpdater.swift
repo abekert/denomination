@@ -51,8 +51,8 @@ enum Currencies: CustomStringConvertible {
     var code: Int {
         switch self {
         case .USD: return 145
-        case .EUR: return 19
-        case .RUB: return 190
+        case .EUR: return 292
+        case .RUB: return 298
         }
     }
     
@@ -79,13 +79,13 @@ class CurrenciesUpdater {
     
     class func getLastMonthCurrenciesRates(currency: Currencies, completion: @escaping (GetCurrenciesResult) -> Void) {
         let from = Date.previousMonth()
-        let to = Date()
+        let to = Date.tomorrow()
         getCurrenciesRates(currency: currency, from: from, to: to, completion: completion)
     }
     
     class func getCurrenciesRates(currency: Currencies, from: Date, to: Date, completion: @escaping (GetCurrenciesResult) -> Void) {
         
-        let request = "http://www.nbrb.by/Services/XmlExRatesDyn.aspx?curId=\(currency.code)&fromDate=\(from.nbrbDescription())&toDate=\(to.nbrbDescription())"
+        let request = "http://www.nbrb.by/API/ExRates/Rates/Dynamics/\(currency.code)?startDate=\(from.nbrbDescription())&endDate=\(to.nbrbDescription())"
         print (request)
         guard let url = URL(string: request) else {
             let message = "Can't create URL from string: \(request)"
@@ -96,7 +96,6 @@ class CurrenciesUpdater {
         
         let session = URLSession.shared
         let urlRequest = URLRequest(url: url)
-//        session.dataTask(with: url, completionHandler: <#T##(Data?, URLResponse?, Error?) -> Void#>)
         session.dataTask(with: urlRequest) { (data, response, error) -> Void in
             if let e = error {
                 let message = "Error: \(e.localizedDescription)"
@@ -105,26 +104,27 @@ class CurrenciesUpdater {
                 return
             }
             
-            if let d = data {
-                //                print(String (data: d, encoding: NSUTF8StringEncoding))
-                let xml = SWXMLHash.parse(d)
-                let rates = RatesHistory(currency: currency)
-                for element in xml["Currency"]["Record"] {
-                    guard let dateString = element.element?.attribute(by: "Date")?.text, let rateString = element["Rate"].element?.text else {
-                        continue
-                    }
-                    
-                    guard let date = Date.fromNbrbString(date: dateString), let rate = Double(rateString) else {
+            let rates = RatesHistory(currency: currency)
+
+            do {
+                let parsedData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [Dictionary<String, Any>]
+                
+                for day in parsedData {
+                    guard let rate = day["Cur_OfficialRate"] as? Double, let dateString = day["Date"] as? String else {
                         continue;
                     }
                     
-                    rates.history[date] = rate;
+                    if let date = Date.from(nbrbString: dateString) {
+                        print("Rate: \(rate), date: \(date.shortDescription)")
+                        rates.history[date] = rate;
+                    }
                 }
-                
-                DispatchQueue.main.async {
-                    completion(GetCurrenciesResult.Success(ratesHistory: rates))
-                }
+            } catch let error as NSError {
+                print(error)
             }
+            
+            completion(GetCurrenciesResult.Success(ratesHistory: rates))
+
         }.resume()
     }
 }

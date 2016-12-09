@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 
 extension UIViewController {
+    
     /// Present UIAlertController with your message and ok button
     func presentError(message: String) -> UIAlertController {
         let alert = UIAlertController (title: "Ошибка", message: message, preferredStyle: .alert)

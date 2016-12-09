@@ -29,11 +29,15 @@ extension Date {
         return "\(components.month!)/\(components.day!)/\(components.year!)"
     }
     
-    static func fromNbrbString(date: String) -> Date? {
-        return dateFromString(date: date, format: "MM/dd/yyyy")
+    static func from(nbrbString date: String) -> Date? {
+//        let format = "yyyy-MM-dd hh:mm:ss"
+        let format = "yyyy-MM-dd"
+        let trimmedDate = date.substring(to: date.index(date.startIndex, offsetBy: 10))
+        return from(dateString: trimmedDate, withFormat: format);
+//        return dateFromString(date: date, format: "yyyy-MM-dd hh:mm:ss")
     }
     
-    private static func dateFromString(date: String, format: String) -> Date? {
+    private static func from(dateString date: String, withFormat format: String) -> Date? {
         let dateFormatter = DateFormatter ()
         dateFormatter.dateFormat = format
         guard let convertedDate = dateFormatter.date(from: date) else {
@@ -44,9 +48,21 @@ extension Date {
     }
     
     static func previousMonth() -> Date {
+        return Date().previousMonth()
+    }
+    
+    func previousMonth() -> Date {
         var components = DateComponents()
         components.month = -1
-        let date = NSCalendar.current.date(byAdding: components, to: Date())
+        let date = NSCalendar.current.date(byAdding: components, to: self)
         return date!
+    }
+    
+    static func tomorrow() -> Date {
+        return Date().tomorrow()
+    }
+    
+    func tomorrow() -> Date {
+        return self.addingTimeInterval(3600 * 24)
     }
 }

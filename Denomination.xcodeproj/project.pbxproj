@@ -11,7 +11,7 @@
 		9D5E14AF1D14B96400736E33 /* PaddingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5E14AE1D14B96400736E33 /* PaddingTextField.swift */; };
 		9D8ABDEF1D154D5C00760D51 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8ABDEE1D154D5C00760D51 /* StringExtensions.swift */; };
 		9D8ABDF21D15521700760D51 /* CurrenciesUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8ABDF11D15521700760D51 /* CurrenciesUpdater.swift */; };
-		9D8ABDF41D157D6C00760D51 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8ABDF31D157D6C00760D51 /* NSDateExtensions.swift */; };
+		9D8ABDF41D157D6C00760D51 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8ABDF31D157D6C00760D51 /* DateExtensions.swift */; };
 		9D8ABDF71D157E4F00760D51 /* CurrencyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8ABDF61D157E4F00760D51 /* CurrencyCell.swift */; };
 		9D8ABDFB1D158D1500760D51 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8ABDFA1D158D1500760D51 /* UIViewControllerExtensions.swift */; };
 		9D8C1F781D14891A0072F349 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8C1F771D14891A0072F349 /* AppDelegate.swift */; };
@@ -29,7 +29,7 @@
 		9D5E14AE1D14B96400736E33 /* PaddingTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaddingTextField.swift; path = Source/Extensions/PaddingTextField.swift; sourceTree = "<group>"; };
 		9D8ABDEE1D154D5C00760D51 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExtensions.swift; path = Source/Extensions/StringExtensions.swift; sourceTree = "<group>"; };
 		9D8ABDF11D15521700760D51 /* CurrenciesUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrenciesUpdater.swift; path = Source/Currencies/CurrenciesUpdater.swift; sourceTree = "<group>"; };
-		9D8ABDF31D157D6C00760D51 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSDateExtensions.swift; path = Source/Extensions/NSDateExtensions.swift; sourceTree = "<group>"; };
+		9D8ABDF31D157D6C00760D51 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateExtensions.swift; path = Source/Extensions/DateExtensions.swift; sourceTree = "<group>"; };
 		9D8ABDF61D157E4F00760D51 /* CurrencyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrencyCell.swift; path = "Source/Custom Cells/CurrencyCell.swift"; sourceTree = "<group>"; };
 		9D8ABDFA1D158D1500760D51 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewControllerExtensions.swift; path = Source/Extensions/UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		9D8C1F741D14891A0072F349 /* Denomination.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Denomination.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,7 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				9D8ABDEE1D154D5C00760D51 /* StringExtensions.swift */,
-				9D8ABDF31D157D6C00760D51 /* NSDateExtensions.swift */,
+				9D8ABDF31D157D6C00760D51 /* DateExtensions.swift */,
 				9D8ABDFA1D158D1500760D51 /* UIViewControllerExtensions.swift */,
 				9D5E14AE1D14B96400736E33 /* PaddingTextField.swift */,
 				9D9FD5051D1C0740005110A9 /* OutlinedLabel.swift */,
@@ -346,7 +346,7 @@
 				9D8ABDEF1D154D5C00760D51 /* StringExtensions.swift in Sources */,
 				9D8C1F8A1D148CDF0072F349 /* TableViewController.swift in Sources */,
 				9D8ABDF21D15521700760D51 /* CurrenciesUpdater.swift in Sources */,
-				9D8ABDF41D157D6C00760D51 /* NSDateExtensions.swift in Sources */,
+				9D8ABDF41D157D6C00760D51 /* DateExtensions.swift in Sources */,
 				9D8C1F781D14891A0072F349 /* AppDelegate.swift in Sources */,
 				9DEA5A7F1D26748F00AC3771 /* LNNumberpad.m in Sources */,
 				9D8ABDFB1D158D1500760D51 /* UIViewControllerExtensions.swift in Sources */,

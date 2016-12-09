@@ -141,7 +141,10 @@ class TableViewController: UITableViewController {
         CurrenciesUpdater.getLastMonthCurrenciesRates(currency: currency) { (result) in
             switch result {
             case .Success(let rates):
-                self.updateCurrencyCell(cell: cell, rates: rates)
+                
+                DispatchQueue.main.sync {
+                    self.updateCurrencyCell(cell: cell, rates: rates)
+                }
 
 //            case let .Error(message):
 //                self.presentError(message)
@@ -298,7 +301,7 @@ class TableViewController: UITableViewController {
                 newMoneyText.text = "0\(separator)"
                 return
             }
-            let separatorsCount = text.CountOccurrences(ofWhat: "\(separator)")
+            let separatorsCount = text.countOccurrences(of: "\(separator)")
             let maxAvailableSeparators = arguments.operationSign != nil ? arguments.firstArgument.hasDecimalPart() ? 2 : 1 : 1
 
             if separatorsCount > maxAvailableSeparators {
@@ -436,7 +439,7 @@ class TableViewController: UITableViewController {
     
     private func parseSingleArgument(inputString: String) -> Double {
         let formatter = NumberFormatter()
-        if let parsed = formatter.number(from:inputString.clearNumericString())?.doubleValue {
+        if let parsed = formatter.number(from:inputString.clearNumericString)?.doubleValue {
             return parsed
         }
         

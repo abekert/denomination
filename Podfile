@@ -9,5 +9,4 @@ target 'Denomination' do
   use_frameworks!
 
   # Pods for Denomination
-  pod 'SWXMLHash', '~> 3.0'
 end
