@@ -22,7 +22,6 @@ class TableViewController: UITableViewController {
     
     let oldMoneyFormatter = NumberFormatter()
     let newMoneyFormatter = NumberFormatter()
-    let maxOldLength = 10
 
     // MARK: - Lifecycle
     

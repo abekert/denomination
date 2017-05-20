@@ -34,8 +34,11 @@ struct ParseResult: CustomStringConvertible {
         self.originalFirst = originalFirst
         self.originalSecond = originalSecond
     }
-
     
+    var hasOperation: Bool {
+        return operationSign != nil && !wantsToRemoveOperation
+    }
+
     var description: String {
         return "first: \(firstArgument) '\(String(describing:operationSign))' second: \(String(describing:secondArgument)). wantsToRemoveOperation: \(wantsToRemoveOperation)"
     }
