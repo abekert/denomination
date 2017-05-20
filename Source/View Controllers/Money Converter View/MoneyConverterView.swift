@@ -107,7 +107,7 @@ class MoneyConverterView: UIView {
         pendingOperation = nil
         operationResult.title = ""
         
-        let arguments = parseArguments(inputString: inputText)
+        let arguments = ParseResult(inputString: inputText)
         let first = arguments.firstArgument
         guard let second = arguments.secondArgument else {
             textField.text = formatter.string(from: NSNumber(value: first))
@@ -143,204 +143,67 @@ class MoneyConverterView: UIView {
             return
         }
         
-        let arguments = parseArguments(inputString: text)
-        print("Arguments: \(arguments)")
+        let firstParse = ParseResult(inputString: text)
+        let finalText = firstParse.formattedString(formatter: oldMoneyFormatter)
+        let finalParse = ParseResult(inputString: finalText)
+        print("Arguments: \(finalParse)")
         
-        operationResult.title = ""
-        guard let firstPart = oldMoneyFormatter.string(from: NSNumber(value: arguments.firstArgument)) else {
-            print("Can't print first argument")
-            return
+        self.oldMoneyText.text = finalText;
+
+        let result = finalParse.calculate()
+        setNewMoney(value: result / 10000.0)
+        if let resultString = oldMoneyFormatter.string(from: NSNumber(value: result)) {
+            operationResult.title = "= \(resultString)"
         }
-        
-        if let operation = pendingOperation, let sign = arguments.operationSign {
-            if arguments.wantsToRemoveOperation {
-                finishComplicatedOperation()
-                return
-            }
-            if let secondArgument = arguments.secondArgument {
-                let result = operation(arguments.firstArgument, secondArgument)
-                operationResult.title = "= \(oldMoneyFormatter.string(from: NSNumber(value: result)))"
-                
-                guard let secondPart = oldMoneyFormatter.string(from: NSNumber(value: secondArgument)) else {
-                    print("Can't print second argument")
-                    return
-                }
-                oldMoneyText.text = "\(firstPart) \(sign) \(secondPart)"
-                newMoneyText.text = newMoneyFormatter.string(from: NSNumber(value: result / 10000.0))
-                return
-            }
-            
-            oldMoneyText.text = "\(firstPart) \(sign) "
-            return
-        }
-        
-        oldMoneyText.text = firstPart
-        newMoneyText.text = newMoneyFormatter.string(from: NSNumber(value: arguments.firstArgument / 10000.0))
     }
     
     @IBAction func newMoneyChanged(sender: UITextField) {
-        guard let text = sender.text, let separator = newMoneyFormatter.decimalSeparator?.characters.first, let lastSymbol = text.characters.last else {
+        guard let text = sender.text else {
             self.oldMoneyText.text = "0"
             return
         }
+
+        let firstParse = ParseResult(inputString: text)
+        let finalText = firstParse.formattedString(formatter: newMoneyFormatter)
+        let finalParse = ParseResult(inputString: finalText)
+        print("Arguments: \(finalParse)")
         
-        let arguments = parseArguments(inputString: text)
-        print("Arguments: \(arguments)")
-        
-        if lastSymbol == separator {
-            if text.characters.count == 1 {
-                newMoneyText.text = "0\(separator)"
-                return
-            }
-            let separatorsCount = text.countOccurrences(of: "\(separator)")
-            let maxAvailableSeparators = arguments.operationSign != nil ? arguments.firstArgument.hasDecimalPart() ? 2 : 1 : 1
-            
-            if separatorsCount > maxAvailableSeparators {
-                // Extra decimal separator
-                newMoneyText.text = text.substring(to: text.index(before: text.endIndex))
-                return
-            }
-            
-            updateOldMoneyTextFromNewArguments(arguments: arguments)
-            return
+        self.newMoneyText.text = finalText;
+
+        let result = finalParse.calculate()
+        setOldMoney(value: result * 10000)
+        if let resultString = newMoneyFormatter.string(from: NSNumber(value: result)) {
+            operationResult.title = "= \(resultString)"
         }
-        
-        let currentArgument = arguments.secondArgument != nil ? arguments.secondArgument! : arguments.firstArgument
-        let decimalPartLength = currentArgument.decimalPartLength()
-        
-        if decimalPartLength > newMoneyFormatter.maximumFractionDigits {
-            // Extra decimal value
-            newMoneyText.text = text.substring(to: text.index(before: text.endIndex))
-            return
+    }
+    
+    @discardableResult
+    private func setOldMoney(value: Double) -> Bool {
+        if let stringValue = oldMoneyFormatter.string(from: NSNumber(value: value)) {
+            oldMoneyText.text = stringValue
+            return true
         }
-        
-        if lastSymbol == "0" {
-            if text.characters.count < 2 {
-                return
-            }
-            
-            let preLast = text.characters[text.index(text.endIndex, offsetBy: -2)]
-            if preLast == separator {
-                updateOldMoneyTextFromNewArguments(arguments: arguments)
-                return
-            }
-            
-            if text.characters.count == 2 && preLast == "0" {
-                newMoneyText.text = text.substring(to: text.index(before: text.endIndex))
-                updateOldMoneyTextFromNewArguments(arguments: arguments)
-                return
-            }
-            
-            if text.characters.count >= 3 {
-                let prePreLast = text.characters[text.index(text.endIndex, offsetBy: -3)]
-                if prePreLast == separator && preLast != "0" {
-                    newMoneyText.text = text.substring(to: text.index(before: text.endIndex))
-                    updateOldMoneyTextFromNewArguments(arguments: arguments)
-                    return
-                }
-            }
+        return false
+    }
+    
+    @discardableResult
+    private func setNewMoney(value: Double) -> Bool {
+        if let stringValue = newMoneyFormatter.string(from: NSNumber(value: value)) {
+            newMoneyText.text = stringValue
+            return true
         }
-        
-        operationResult.title = ""
-        guard let firstPart = newMoneyFormatter.string(from: NSNumber(value: arguments.firstArgument)) else {
-            print("Can't print first argument")
-            return
-        }
-        
-        if let operation = pendingOperation, let sign = arguments.operationSign {
-            if arguments.wantsToRemoveOperation {
-                finishComplicatedOperation()
-                return
-            }
-            if let secondArgument = arguments.secondArgument {
-                let result = operation(arguments.firstArgument, secondArgument)
-                operationResult.title = "= \(newMoneyFormatter.string(from: NSNumber(value:  result))!)"
-                
-                guard let secondPart = newMoneyFormatter.string(from: NSNumber(value: secondArgument)) else {
-                    print("Can't print second argument")
-                    return
-                }
-                newMoneyText.text = "\(firstPart) \(sign) \(secondPart)"
-                oldMoneyText.text = oldMoneyFormatter.string(from: NSNumber(value: result * 10000.0))
-                return
-            }
-            
-            newMoneyText.text = "\(firstPart) \(sign) "
-            return
-        }
-        
-        if lastSymbol != separator {
-            newMoneyText.text = firstPart
-        }
-        oldMoneyText.text = oldMoneyFormatter.string(from: NSNumber(value: arguments.firstArgument * 10000))
+        return false
     }
     
     private func updateOldMoneyTextFromNewArguments(arguments: ParseResult) {
         if let operation = pendingOperation, let secondArgument = arguments.secondArgument {
             let result = operation(arguments.firstArgument, secondArgument)
-            operationResult.title = "= \(newMoneyFormatter.string(from: NSNumber(value: result)))"
+            if let operationTitle = newMoneyFormatter.string(from: NSNumber(value: result)) {
+                operationResult.title = "= \(operationTitle)"
+            }
             oldMoneyText.text = oldMoneyFormatter.string(from: NSNumber(value: result * 10000.0))
             return
         }
         oldMoneyText.text = oldMoneyFormatter.string(from: NSNumber(value: arguments.firstArgument * 10000))
     }
-    
-    class ParseResult: CustomStringConvertible {
-        let firstArgument: Double
-        let secondArgument: Double?
-        let operationSign: Character?
-        let wantsToRemoveOperation: Bool
-        
-        init(firstArgument: Double) {
-            self.firstArgument = firstArgument
-            secondArgument = nil
-            operationSign = nil
-            wantsToRemoveOperation = false
-        }
-        
-        init(firstArgument: Double, secondArgument: Double?, operationSign: Character, wantsToRemoveOperation: Bool = false) {
-            self.firstArgument = firstArgument
-            self.secondArgument = secondArgument
-            self.operationSign = operationSign
-            self.wantsToRemoveOperation = wantsToRemoveOperation
-        }
-        
-        var description: String {
-            return "first: \(firstArgument) '\(operationSign)' second: \(secondArgument). wantsToRemoveOperation: \(wantsToRemoveOperation)"
-        }
-    }
-    
-    private func parseArguments(inputString: String) -> ParseResult {
-        let operations = CharacterSet(charactersIn:"+–")
-        guard let range = inputString.rangeOfCharacter(from:operations) else {
-            print("Can't find operation symbol")
-            return ParseResult(firstArgument:parseSingleArgument(inputString: inputString))
-        }
-        
-        let operationSign = inputString[range.lowerBound]
-        //        let firstArgument = parseSingleArgument(inputString.substringToIndex(range.startIndex.predecessor()))
-        
-        let firstArgumentEndIndex = inputString.index(before: range.lowerBound)
-        let firstArgument = parseSingleArgument(inputString: inputString.substring(to:firstArgumentEndIndex))
-        let distanceToEnd = inputString.distance(from: range.lowerBound, to: inputString.endIndex)
-        if distanceToEnd < 3 {
-            return ParseResult(firstArgument: firstArgument, secondArgument: nil, operationSign: operationSign, wantsToRemoveOperation: distanceToEnd < 2)
-        }
-        
-        let secondArgumentBeginIndex = inputString.index(after: range.lowerBound)
-        let secondArgument = parseSingleArgument(inputString: inputString.substring(from: secondArgumentBeginIndex))
-        return ParseResult(firstArgument: firstArgument, secondArgument: secondArgument, operationSign: operationSign, wantsToRemoveOperation: false)
-    }
-    
-    private func parseSingleArgument(inputString: String) -> Double {
-        let formatter = NumberFormatter()
-        if let parsed = formatter.number(from:inputString.clearNumericString)?.doubleValue {
-            return parsed
-        }
-        
-        return 0
-    }
-    
-
-    
 }

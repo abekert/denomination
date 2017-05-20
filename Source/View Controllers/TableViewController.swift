@@ -88,12 +88,7 @@ class TableViewController: UITableViewController {
         }
         
         if rubCell != nil {
-            let oldFormatter = NumberFormatter ()
-            oldFormatter.minimumIntegerDigits = 1
-            oldFormatter.maximumFractionDigits = 2
-            oldFormatter.usesGroupingSeparator = true
-            oldFormatter.groupingSeparator = "\u{2008}"
-            rubCell.oldMoneyFormatter = oldFormatter
+            rubCell.oldMoneyFormatter = oldMoneyFormatter
             
             let newFormatter = NumberFormatter ()
             newFormatter.minimumIntegerDigits = 1
@@ -102,7 +97,6 @@ class TableViewController: UITableViewController {
             newFormatter.groupingSeparator = "\u{2008}"
             rubCell.newMoneyFormatter = newFormatter
         }
-
     }
 
     override func viewWillAppear(_ animated: Bool) {

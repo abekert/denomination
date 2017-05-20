@@ -24,6 +24,7 @@
 		9DD7CD361DFB299600752957 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD7CD351DFB299600752957 /* Currency.swift */; };
 		9DD7CD381DFB29CB00752957 /* RatesHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD7CD371DFB29CB00752957 /* RatesHistory.swift */; };
 		9DD7CD3A1DFB2A1700752957 /* DoubleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD7CD391DFB2A1700752957 /* DoubleExtensions.swift */; };
+		9DDCAE841E0E73AF00C0FA2F /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDCAE831E0E73AF00C0FA2F /* Parser.swift */; };
 		9DF8AAB71DFC0921009D17A0 /* MoneyConverterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF8AAB61DFC0921009D17A0 /* MoneyConverterView.swift */; };
 		9DF8AAB91DFC0946009D17A0 /* MoneyConverterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9DF8AAB81DFC0946009D17A0 /* MoneyConverterView.xib */; };
 /* End PBXBuildFile section */
@@ -50,6 +51,7 @@
 		9DD7CD351DFB299600752957 /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Currency.swift; path = Source/Currencies/Currency.swift; sourceTree = "<group>"; };
 		9DD7CD371DFB29CB00752957 /* RatesHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RatesHistory.swift; path = Source/Currencies/RatesHistory.swift; sourceTree = "<group>"; };
 		9DD7CD391DFB2A1700752957 /* DoubleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DoubleExtensions.swift; path = Source/Extensions/DoubleExtensions.swift; sourceTree = "<group>"; };
+		9DDCAE831E0E73AF00C0FA2F /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Parser.swift; path = "Source/View Controllers/Money Converter View/Parser.swift"; sourceTree = "<group>"; };
 		9DF8AAB61DFC0921009D17A0 /* MoneyConverterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoneyConverterView.swift; path = "Source/View Controllers/Money Converter View/MoneyConverterView.swift"; sourceTree = "<group>"; };
 		9DF8AAB81DFC0946009D17A0 /* MoneyConverterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MoneyConverterView.xib; path = "Source/View Controllers/Money Converter View/MoneyConverterView.xib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -163,6 +165,7 @@
 			children = (
 				9DF8AAB61DFC0921009D17A0 /* MoneyConverterView.swift */,
 				9DF8AAB81DFC0946009D17A0 /* MoneyConverterView.xib */,
+				9DDCAE831E0E73AF00C0FA2F /* Parser.swift */,
 			);
 			name = "Money Converter View";
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 			files = (
 				9D9FD5061D1C0740005110A9 /* OutlinedLabel.swift in Sources */,
 				9D8ABDF71D157E4F00760D51 /* CurrencyCell.swift in Sources */,
+				9DDCAE841E0E73AF00C0FA2F /* Parser.swift in Sources */,
 				9DD7CD381DFB29CB00752957 /* RatesHistory.swift in Sources */,
 				9D5E14AF1D14B96400736E33 /* PaddingTextField.swift in Sources */,
 				9DF8AAB71DFC0921009D17A0 /* MoneyConverterView.swift in Sources */,

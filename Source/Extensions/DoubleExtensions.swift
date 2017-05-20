@@ -8,10 +8,17 @@ extension Double {
         if str.characters.last == "0" {
             return 0
         }
+        
+        return str.decimalPartLength()
+    }
+}
+
+extension String {
+    func decimalPartLength() -> Int {
         let separators = CharacterSet(charactersIn: ",.")
-        guard let range = str.rangeOfCharacter(from: separators) else {
+        guard let range = self.rangeOfCharacter(from: separators) else {
             return 0
         }
-        return str.distance(from: range.lowerBound, to: str.endIndex) - 1
+        return self.distance(from: range.lowerBound, to: self.endIndex) - 1
     }
 }
