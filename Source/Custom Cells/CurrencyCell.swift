@@ -40,29 +40,29 @@ class CurrencyCell: UITableViewCell {
     static private let upArrow = "\u{2191}"
     static private let downArrow = "\u{2193}"
     
-    var oldMoneyFormatter: NSNumberFormatter?
-    var newMoneyFormatter: NSNumberFormatter?
+    var oldMoneyFormatter: NumberFormatter?
+    var newMoneyFormatter: NumberFormatter?
     
     func setRatesOld(oldRate: Double, oldGrowth: Double) {
-        setRates(self.oldRate, rate: oldRate, growthLabel: self.oldGrowth, growth: oldGrowth, numberFormatter: oldMoneyFormatter)
-        setRates(newRate, rate: oldRate / 10000.0, growthLabel: newGrowth, growth: oldGrowth / 10000.0, numberFormatter: newMoneyFormatter)
+        setRates(rateLabel: self.oldRate, rate: oldRate, growthLabel: self.oldGrowth, growth: oldGrowth, numberFormatter: oldMoneyFormatter)
+        setRates(rateLabel: newRate, rate: oldRate / 10000.0, growthLabel: newGrowth, growth: oldGrowth / 10000.0, numberFormatter: newMoneyFormatter)
     }
     
     func setRatesNew(newRate: Double, newGrowth: Double) {
-        setRates(self.oldRate, rate: newRate * 10000, growthLabel: self.oldGrowth, growth: newGrowth * 10000, numberFormatter: oldMoneyFormatter)
-        setRates(self.newRate, rate: newRate, growthLabel: self.newGrowth, growth: newGrowth, numberFormatter: newMoneyFormatter)
+        setRates(rateLabel: self.oldRate, rate: newRate * 10000, growthLabel: self.oldGrowth, growth: newGrowth * 10000, numberFormatter: oldMoneyFormatter)
+        setRates(rateLabel: self.newRate, rate: newRate, growthLabel: self.newGrowth, growth: newGrowth, numberFormatter: newMoneyFormatter)
     }
 
     
-    private func setRates(rateLabel: UILabel, rate: Double, growthLabel: UILabel, growth: Double, numberFormatter: NSNumberFormatter?) {
+    private func setRates(rateLabel: UILabel, rate: Double, growthLabel: UILabel, growth: Double, numberFormatter: NumberFormatter?) {
         if let formatter = numberFormatter {
-            rateLabel.text = formatter.stringFromNumber(rate)
+            rateLabel.text = formatter.string(from: NSNumber(value: rate))
         } else {
             rateLabel.text = rate.description
             growthLabel.text = growth.description
         }
         
-        setupGrowthLabelStyle(growthLabel, value: growth, numberFormatter: numberFormatter)
+        setupGrowthLabelStyle(label: growthLabel, value: growth, numberFormatter: numberFormatter)
         
 //        if growthIcon != nil {
 //            setupGrowthIconStyle(growthIcon, value: growth)
@@ -70,12 +70,12 @@ class CurrencyCell: UITableViewCell {
 
     }
     
-    private func setupGrowthLabelStyle (label: UILabel, value: Double, numberFormatter: NSNumberFormatter?) {
+    private func setupGrowthLabelStyle (label: UILabel, value: Double, numberFormatter: NumberFormatter?) {
         if value == 0 {
-            label.hidden = true
+            label.isHidden = true
             return
         }
-        label.hidden = false
+        label.isHidden = false
 
         let arrow: String
         if value > 0 {
@@ -88,7 +88,7 @@ class CurrencyCell: UITableViewCell {
 
         let absValue = abs(value)
         if let formatter = numberFormatter {
-            label.text = formatter.stringFromNumber(absValue)
+            label.text = formatter.string(from: NSNumber(value: absValue))
         } else {
             label.text = absValue.description
         }

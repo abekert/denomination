@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MoneyConverterView" customModule="Denomination" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MoneyConverterView" customModule="Denomination" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="177" placeholderIntrinsicHeight="27" text="НОВЫЕ ДЕНЬГИ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFL-56-nN1">
+                    <rect key="frame" x="16" y="8" width="177" height="27"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="luF-yr-L8y" customClass="PaddingTextField" customModule="Denomination" customModuleProvider="target">
+                    <rect key="frame" x="16" y="43" width="343" height="50"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.14999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="x3e-Br-ggV"/>
+                    </constraints>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                    <textInputTraits key="textInputTraits" keyboardType="decimalPad" keyboardAppearance="alert"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="paddingLeft">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="paddingRight">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="didBeganEditingWithSender:" destination="iN0-l3-epB" eventType="editingDidBegin" id="0dq-ox-uOX"/>
+                        <action selector="didFinishEditingWithSender:" destination="iN0-l3-epB" eventType="editingDidEnd" id="WWA-Kn-7Pv"/>
+                        <action selector="newMoneyChangedWithSender:" destination="iN0-l3-epB" eventType="editingChanged" id="zIn-ch-7oq"/>
+                    </connections>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="9Ib-sb-K2p" customClass="PaddingTextField" customModule="Denomination" customModuleProvider="target">
+                    <rect key="frame" x="16" y="138" width="343" height="50"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.14999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="alert"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="paddingLeft">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="paddingRight">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="didBeganEditingWithSender:" destination="iN0-l3-epB" eventType="editingDidBegin" id="T59-gv-HDl"/>
+                        <action selector="didFinishEditingWithSender:" destination="iN0-l3-epB" eventType="editingDidEnd" id="Pyn-r1-cgE"/>
+                        <action selector="oldMoneyChangedWithSender:" destination="iN0-l3-epB" eventType="editingChanged" id="9wC-ok-wYL"/>
+                    </connections>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="СТАРЫЕ ДЕНЬГИ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9GS-w9-3mE">
+                    <rect key="frame" x="16" y="103" width="187" height="27"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="9Ib-sb-K2p" firstAttribute="height" secondItem="luF-yr-L8y" secondAttribute="height" id="4Ju-kF-rFL"/>
+                <constraint firstItem="hFL-56-nN1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="56P-if-v4D"/>
+                <constraint firstItem="9GS-w9-3mE" firstAttribute="top" secondItem="luF-yr-L8y" secondAttribute="bottom" constant="10" id="7uN-Yp-lL8"/>
+                <constraint firstItem="hFL-56-nN1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="SBi-A8-kks"/>
+                <constraint firstItem="9Ib-sb-K2p" firstAttribute="top" secondItem="9GS-w9-3mE" secondAttribute="bottom" constant="8" id="Vde-cB-bar"/>
+                <constraint firstAttribute="trailing" secondItem="luF-yr-L8y" secondAttribute="trailing" constant="16" id="Xzx-Ue-ezS"/>
+                <constraint firstItem="luF-yr-L8y" firstAttribute="top" secondItem="hFL-56-nN1" secondAttribute="bottom" constant="8" id="Zrv-AB-IMG"/>
+                <constraint firstItem="9GS-w9-3mE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="fhF-Gd-1V8"/>
+                <constraint firstAttribute="trailing" secondItem="9Ib-sb-K2p" secondAttribute="trailing" constant="16" id="gir-Oh-2UZ"/>
+                <constraint firstItem="luF-yr-L8y" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="lRH-pM-Frb"/>
+                <constraint firstItem="9Ib-sb-K2p" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="yMG-1X-lGC"/>
+            </constraints>
+            <connections>
+                <outlet property="keyboardToolbar" destination="7RQ-AI-Hs7" id="pq2-Iu-tql"/>
+                <outlet property="newMoneyText" destination="luF-yr-L8y" id="luS-J5-eia"/>
+                <outlet property="oldMoneyText" destination="9Ib-sb-K2p" id="GAg-J2-ZuY"/>
+                <outlet property="operationResult" destination="mfC-Ij-LSi" id="gLe-Wc-jWF"/>
+            </connections>
+        </view>
+        <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" id="7RQ-AI-Hs7">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+            <items>
+                <barButtonItem width="8" style="plain" systemItem="fixedSpace" id="0CH-Ov-GVr"/>
+                <barButtonItem systemItem="add" id="pbh-Fd-HCo">
+                    <color key="tintColor" red="0.97000002860000001" green="0.97000002860000001" blue="0.97000002860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <connections>
+                        <action selector="addButtonPressed" destination="iN0-l3-epB" id="es8-qM-loa"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem width="26" style="plain" systemItem="fixedSpace" id="F2D-ge-2nE"/>
+                <barButtonItem title="—" id="vmM-7u-bYs">
+                    <color key="tintColor" red="0.97000002860000001" green="0.97000002860000001" blue="0.97000002860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <connections>
+                        <action selector="substractButtonPressed" destination="iN0-l3-epB" id="vzc-n3-c21"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem width="25" style="plain" systemItem="fixedSpace" id="VcN-nb-qOW"/>
+                <barButtonItem title="Your sum" id="mfC-Ij-LSi">
+                    <color key="tintColor" red="0.97000002860000001" green="0.97000002860000001" blue="0.97000002860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <connections>
+                        <action selector="equalsButtonPressed" destination="iN0-l3-epB" id="J9c-yM-wxw"/>
+                    </connections>
+                </barButtonItem>
+            </items>
+            <color key="tintColor" red="0.97000002860000001" green="0.97000002860000001" blue="0.97000002860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </toolbar>
+    </objects>
+</document>

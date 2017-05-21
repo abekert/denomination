@@ -9,14 +9,14 @@
 import Foundation
 
 extension String {
-    static let charset = NSCharacterSet(charactersInString: "1234567890.,-").invertedSet
+    static let charset = CharacterSet(charactersIn: "1234567890.,-").inverted
     
-    func clearNumericString() -> String {
-        return self.componentsSeparatedByCharactersInSet(String.charset).joinWithSeparator("")
+    var clearNumericString: String {
+        return self.components(separatedBy:(String.charset)).joined()
     }
     
-    func CountOccurrences(ofWhat: String) -> Int {
-        let tok = self.componentsSeparatedByString(ofWhat)
+    func countOccurrences(of what: String) -> Int {
+        let tok = self.components(separatedBy: what)
         return tok.count - 1
     }
 }

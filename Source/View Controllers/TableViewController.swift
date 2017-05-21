@@ -8,36 +8,30 @@
 
 import UIKit
 
-
 class TableViewController: UITableViewController {
     @IBInspectable
-    var topGradientColor: UIColor = UIColor.whiteColor()
+    var topGradientColor: UIColor = UIColor.white
     @IBInspectable
-    var bottomGradientColor: UIColor = UIColor.whiteColor()
-
-    @IBOutlet weak var oldMoneyText: UITextField!
-    @IBOutlet weak var newMoneyText: UITextField!
-    @IBOutlet weak var keyboardToolbar: UIToolbar!
-    @IBOutlet weak var operationResult: UIBarButtonItem!
+    var bottomGradientColor: UIColor = UIColor.white
     
     @IBOutlet weak var usdCell: CurrencyCell!
     @IBOutlet weak var eurCell: CurrencyCell!
     @IBOutlet weak var rubCell: CurrencyCell!
     
-    let oldMoneyFormatter = NSNumberFormatter()
-    let newMoneyFormatter = NSNumberFormatter()
-    let maxOldLength = 10
+    let firstCell = UITableViewCell()
+    
+    let oldMoneyFormatter = NumberFormatter()
+    let newMoneyFormatter = NumberFormatter()
 
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        UIApplication.shared.statusBarStyle = .lightContent
         initMoneyFormatters()
-        initTextFields()
-        setTableViewBackgroundGradient(self, topGradientColor, bottomGradientColor)
-        initCurrenciesCells ()
+        setTableViewBackgroundGradient(sender: self, topColor: topGradientColor, bottomColor: bottomGradientColor)
+        initCurrenciesCells()
     }
 
     private func initMoneyFormatters() {
@@ -46,29 +40,20 @@ class TableViewController: UITableViewController {
         oldMoneyFormatter.minimumIntegerDigits = 1
         oldMoneyFormatter.usesGroupingSeparator = true
         oldMoneyFormatter.groupingSeparator = "\u{2008}"
+        oldMoneyFormatter.groupingSize = 3
         
         newMoneyFormatter.currencyCode = "BYN"
         newMoneyFormatter.maximumFractionDigits = 2
         newMoneyFormatter.minimumIntegerDigits = 1
         newMoneyFormatter.usesGroupingSeparator = true
         newMoneyFormatter.groupingSeparator = "\u{2008}"
-    }
-    
-    private func initTextFields() {
-        operationResult.title = ""
-        oldMoneyText.inputAccessoryView = keyboardToolbar
-        newMoneyText.inputAccessoryView = keyboardToolbar
-
-        if (UI_USER_INTERFACE_IDIOM() == .Pad) {
-            oldMoneyText.inputView = LNNumberpad.defaultLNNumberpad ()
-            newMoneyText.inputView = LNNumberpad.defaultLNNumberpad ()
-        }
+        newMoneyFormatter.groupingSize = 3
     }
     
     var gradientLayer: CAGradientLayer!
-    func setTableViewBackgroundGradient(sender: UITableViewController, _ topColor:UIColor, _ bottomColor:UIColor) {
-        let gradientBackgroundColors = [topColor.CGColor, bottomColor.CGColor]
-        let gradientLocations = [0.0,1.0]
+    func setTableViewBackgroundGradient(sender: UITableViewController, topColor: UIColor, bottomColor: UIColor) {
+        let gradientBackgroundColors = [topColor.cgColor, bottomColor.cgColor]
+        let gradientLocations = [NSNumber(value: 0), NSNumber(value: 1.0)]
         
         gradientLayer = CAGradientLayer()
         gradientLayer.colors = gradientBackgroundColors
@@ -76,14 +61,14 @@ class TableViewController: UITableViewController {
         
         gradientLayer.frame = sender.tableView.bounds
         let backgroundView = UIView(frame: sender.tableView.bounds)
-        backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
+        backgroundView.layer.insertSublayer(gradientLayer, at: 0)
         sender.tableView.backgroundView = backgroundView
     }
     
     func initCurrenciesCells() {
         if usdCell != nil {
             usdCell.oldMoneyFormatter = oldMoneyFormatter
-            let newFormatter = NSNumberFormatter ()
+            let newFormatter = NumberFormatter ()
             newFormatter.minimumIntegerDigits = 1
             newFormatter.maximumFractionDigits = 4
             newFormatter.usesGroupingSeparator = true
@@ -93,7 +78,7 @@ class TableViewController: UITableViewController {
         
         if eurCell != nil {
             eurCell.oldMoneyFormatter = oldMoneyFormatter
-            let newFormatter = NSNumberFormatter ()
+            let newFormatter = NumberFormatter ()
             newFormatter.minimumIntegerDigits = 1
             newFormatter.maximumFractionDigits = 4
             newFormatter.usesGroupingSeparator = true
@@ -102,24 +87,18 @@ class TableViewController: UITableViewController {
         }
         
         if rubCell != nil {
-            let oldFormatter = NSNumberFormatter ()
-            oldFormatter.minimumIntegerDigits = 1
-            oldFormatter.maximumFractionDigits = 2
-            oldFormatter.usesGroupingSeparator = true
-            oldFormatter.groupingSeparator = "\u{2008}"
-            rubCell.oldMoneyFormatter = oldFormatter
+            rubCell.oldMoneyFormatter = oldMoneyFormatter
             
-            let newFormatter = NSNumberFormatter ()
+            let newFormatter = NumberFormatter ()
             newFormatter.minimumIntegerDigits = 1
             newFormatter.maximumFractionDigits = 6
             newFormatter.usesGroupingSeparator = true
             newFormatter.groupingSeparator = "\u{2008}"
             rubCell.newMoneyFormatter = newFormatter
         }
-
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         getCurrencies()
@@ -127,21 +106,24 @@ class TableViewController: UITableViewController {
 
     func getCurrencies() {
         if usdCell != nil {
-            getUpdatesForCurrency(.USD, cell: usdCell)
+            getUpdatesForCurrency(currency: .USD, cell: usdCell)
         }
         if eurCell != nil {
-            getUpdatesForCurrency(.EUR, cell: eurCell)
+            getUpdatesForCurrency(currency: .EUR, cell: eurCell)
         }
         if rubCell != nil {
-            getUpdatesForCurrency(.RUB, cell: rubCell)
+            getUpdatesForCurrency(currency: .RUB, cell: rubCell)
         }
     }
     
     func getUpdatesForCurrency(currency: Currencies, cell: CurrencyCell) {
-        CurrenciesUpdater.getLastMonthCurrenciesRates(currency) { (result) in
+        CurrenciesUpdater.getLastMonthCurrenciesRates(currency: currency) { (result) in
             switch result {
             case .Success(let rates):
-                self.updateCurrencyCell(cell, rates: rates)
+                
+                DispatchQueue.main.sync {
+                    self.updateCurrencyCell(cell: cell, rates: rates)
+                }
 
 //            case let .Error(message):
 //                self.presentError(message)
@@ -156,304 +138,42 @@ class TableViewController: UITableViewController {
         guard let rate = rates.latestRate else {
             return
         }
-        cell.setRatesNew(rate.rate, newGrowth: rate.growth)
+//        cell.newMoneyFormatter = newMoneyFormatter
+//        cell.oldMoneyFormatter = oldMoneyFormatter
+        cell.setRatesNew(newRate: rate.rate, newGrowth: rate.growth)
     }
     
-    // MARK: - Keyboard
-    
-    var activeTextField: UITextField? = nil
-    var pendingOperation: ((Double, Double) -> Double)? = nil
-    
-    @IBAction func addButtonPressed() {
-        //change keyboard type to number
-        print("Add")
-        
-        if pendingOperation != nil {
-            finishComplicatedOperation()
-        }
-
-        activeTextField?.text?.appendContentsOf(" + ")
-        
-        pendingOperation = {$0 + $1}
-    }
-    
-    @IBAction func substractButtonPressed() {
-        //change keyboard type to default
-        print("Minus")
-        
-        if pendingOperation != nil {
-            finishComplicatedOperation()
-        }
-        
-        activeTextField?.text?.appendContentsOf(" – ")
-        
-        pendingOperation = {$0 - $1}
-    }
-    
-    @IBAction func equalsButtonPressed() {
-        //change keyboard type to default
-        print("Equals")
-        if pendingOperation != nil {
-            finishComplicatedOperation()
-        }
-    }
-    
-    private func finishComplicatedOperation() {
-        guard let operation = pendingOperation else {
-            print("Pending operation was not assigned")
-            return
-        }
-        
-        guard let textField = activeTextField, inputText = textField.text else {
-            print("Active text field was not set to put operation result")
-            return
-        }
-
-        let formatter = textField === oldMoneyText ? oldMoneyFormatter : newMoneyFormatter
-        
-        pendingOperation = nil
-        operationResult.title = ""
-
-        let arguments = parseArguments(inputText)
-        let first = arguments.firstArgument
-        guard let second = arguments.secondArgument else {
-            textField.text = formatter.stringFromNumber(first)
-            return
-        }
-        
-        let result = operation(first, second)
-        textField.text = formatter.stringFromNumber(result)
-    }
-
-    // MARK: - Text Fields
-    
-    @IBAction func didBeganEditing(sender: UITextField) {
-        activeTextField = sender
-        let s = sender === oldMoneyText ? "old" : "new"
-        print("didBeganEditing \(s)")
-    }
-    
-    @IBAction func didFinishEditing(sender: UITextField) {
-        let s = sender === oldMoneyText ? "old" : "new"
-        print("didFinishEditing \(s)")
-        
-        if pendingOperation != nil {
-            finishComplicatedOperation()
-        }
-        activeTextField = nil
-    }
-    
-    @IBAction func oldMoneyChanged(sender: UITextField) {
-        guard let text = sender.text else {
-            self.newMoneyText.text = "0"
-            return
-        }
-        
-        let arguments = parseArguments(text)
-        print("Arguments: \(arguments)")
-        
-        operationResult.title = ""
-        guard let firstPart = oldMoneyFormatter.stringFromNumber(arguments.firstArgument) else {
-            print("Can't print first argument")
-            return
-        }
-
-        if let operation = pendingOperation, sign = arguments.operationSign {
-            if arguments.wantsToRemoveOperation {
-                finishComplicatedOperation()
-                return
-            }
-            if let secondArgument = arguments.secondArgument {
-                let result = operation(arguments.firstArgument, secondArgument)
-                operationResult.title = "= \(oldMoneyFormatter.stringFromNumber(result)!)"
-                
-                guard let secondPart = oldMoneyFormatter.stringFromNumber(secondArgument) else {
-                    print("Can't print second argument")
-                    return
-                }
-                oldMoneyText.text = "\(firstPart) \(sign) \(secondPart)"
-                newMoneyText.text = newMoneyFormatter.stringFromNumber(result / 10000.0)
-                return
-            }
-            
-            oldMoneyText.text = "\(firstPart) \(sign) "
-            return
-        }
-
-        oldMoneyText.text = firstPart
-        newMoneyText.text = newMoneyFormatter.stringFromNumber(arguments.firstArgument / 10000.0)
-    }
-    
-    @IBAction func newMoneyChanged(sender: UITextField) {
-        guard let text = sender.text, separator = newMoneyFormatter.decimalSeparator?.characters.first, lastSymbol = text.characters.last else {
-            self.oldMoneyText.text = "0"
-            return
-        }
-        
-        let arguments = parseArguments(text)
-        print("Arguments: \(arguments)")
-
-        if lastSymbol == separator {
-            if text.characters.count == 1 {
-                newMoneyText.text = "0\(separator)"
-                return
-            }
-            let separatorsCount = text.CountOccurrences("\(separator)")
-            let maxAvailableSeparators = arguments.operationSign != nil ? arguments.firstArgument.hasDecimalPart() ? 2 : 1 : 1
-
-            if separatorsCount > maxAvailableSeparators {
-                // Extra decimal separator
-                newMoneyText.text = text.substringToIndex(text.endIndex.predecessor())
-                return
-            }
-            
-            updateOldMoneyTextFromNewArguments(arguments)
-            return
-        }
-        
-        let currentArgument = arguments.secondArgument != nil ? arguments.secondArgument! : arguments.firstArgument
-        let decimalPartLength = currentArgument.decimalPartLength()
-
-        if decimalPartLength > newMoneyFormatter.maximumFractionDigits {
-            // Extra decimal value
-            newMoneyText.text = text.substringToIndex(text.endIndex.predecessor())
-            return
-        }
-        
-        if lastSymbol == "0" {
-            if text.characters.count < 2 {
-                return
-            }
-            let preLast = text.characters[text.endIndex.advancedBy(-2)]
-            if preLast == separator {
-                updateOldMoneyTextFromNewArguments(arguments)
-                return
-            }
-            
-            if text.characters.count == 2 && preLast == "0" {
-                newMoneyText.text = text.substringToIndex (text.endIndex.predecessor())
-                updateOldMoneyTextFromNewArguments(arguments)
-                return
-            }
-
-            if text.characters.count >= 3 {
-                let prePreLast = text.characters[text.endIndex.advancedBy(-3)]
-                if prePreLast == separator && preLast != "0" {
-                    newMoneyText.text = text.substringToIndex (text.endIndex.predecessor())
-                    updateOldMoneyTextFromNewArguments(arguments)
-                    return
-                }
-            }
-        }
-        
-        operationResult.title = ""
-        guard let firstPart = newMoneyFormatter.stringFromNumber(arguments.firstArgument) else {
-            print("Can't print first argument")
-            return
-        }
-        
-        if let operation = pendingOperation, sign = arguments.operationSign {
-            if arguments.wantsToRemoveOperation {
-                finishComplicatedOperation()
-                return
-            }
-            if let secondArgument = arguments.secondArgument {
-                let result = operation(arguments.firstArgument, secondArgument)
-                operationResult.title = "= \(newMoneyFormatter.stringFromNumber(result)!)"
-                
-                guard let secondPart = newMoneyFormatter.stringFromNumber(secondArgument) else {
-                    print("Can't print second argument")
-                    return
-                }
-                newMoneyText.text = "\(firstPart) \(sign) \(secondPart)"
-                oldMoneyText.text = oldMoneyFormatter.stringFromNumber(result * 10000.0)
-                return
-            }
-            
-            newMoneyText.text = "\(firstPart) \(sign) "
-            return
-        }
-
-        if lastSymbol != separator {
-            newMoneyText.text = firstPart
-        }
-        oldMoneyText.text = oldMoneyFormatter.stringFromNumber(arguments.firstArgument * 10000)
-    }
-    
-    private func updateOldMoneyTextFromNewArguments(arguments: ParseResult) {
-        if let operation = pendingOperation, secondArgument = arguments.secondArgument {
-            let result = operation(arguments.firstArgument, secondArgument)
-            operationResult.title = "= \(newMoneyFormatter.stringFromNumber(result)!)"
-            oldMoneyText.text = oldMoneyFormatter.stringFromNumber(result * 10000.0)
-            return
-        }
-        oldMoneyText.text = oldMoneyFormatter.stringFromNumber(arguments.firstArgument * 10000)
-    }
-    
-    class ParseResult {
-        let firstArgument: Double
-        let secondArgument: Double?
-        let operationSign: Character?
-        let wantsToRemoveOperation: Bool
-        
-        init(firstArgument: Double) {
-            self.firstArgument = firstArgument
-            secondArgument = nil
-            operationSign = nil
-            wantsToRemoveOperation = false
-        }
-        
-        init(firstArgument: Double, secondArgument: Double?, operationSign: Character, wantsToRemoveOperation: Bool = false) {
-            self.firstArgument = firstArgument
-            self.secondArgument = secondArgument
-            self.operationSign = operationSign
-            self.wantsToRemoveOperation = wantsToRemoveOperation
-        }
-    }
-    
-    private func parseArguments(inputString: String) -> ParseResult {
-        let operations = NSCharacterSet(charactersInString:"+–")
-        guard let range = inputString.rangeOfCharacterFromSet(operations) else {
-            print("Can't find operation symbol")
-            return ParseResult(firstArgument:parseSingleArgument(inputString))
-        }
-        
-        let operationSign = inputString[range.startIndex]
-        let firstArgument = parseSingleArgument(inputString.substringToIndex(range.startIndex.predecessor()))
-        let distanceToEnd = range.startIndex.distanceTo(inputString.endIndex)
-        if distanceToEnd < 3 {
-            return ParseResult(firstArgument: firstArgument, secondArgument: nil, operationSign: operationSign, wantsToRemoveOperation: distanceToEnd < 2)
-        }
-        
-        let secondArgument = parseSingleArgument(inputString.substringFromIndex(range.startIndex.successor()))
-        return ParseResult(firstArgument: firstArgument, secondArgument: secondArgument, operationSign: operationSign, wantsToRemoveOperation: false)
-    }
-    
-    private func parseSingleArgument(inputString: String) -> Double {
-        let formatter = NSNumberFormatter()
-        if let parsed = formatter.numberFromString(inputString.clearNumericString())?.doubleValue {
-            return parsed
-        }
-        
-        return 0
-    }
-
     
     // MARK: - Table View
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 1 {
-            return "Курсы валют НБРБ за " + NSDate().shortShortDescription
+            return "Курсы валют НБРБ за " + Date().shortShortDescription
         }
         
         return super.tableView(tableView, titleForHeaderInSection: section)
     }
     
-
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        cell.backgroundColor = UIColor.clearColor()
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = UIColor.clear
     }
     
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 0 {
+            if firstCell.contentView.subviews.count == 0 {
+                guard let moneyConverterView = MoneyConverterView.configuredView() else {
+                    return firstCell
+                }
+                moneyConverterView.oldMoneyFormatter = oldMoneyFormatter
+                moneyConverterView.newMoneyFormatter = newMoneyFormatter
+                firstCell.contentView.addSubview(moneyConverterView)
+                moneyConverterView.frame = firstCell.bounds
+            }
+            return firstCell
+        }
+        
+        return super.tableView(tableView, cellForRowAt: indexPath)
+    }
     
 //    override func viewWillLayoutSubviews() {
 //        super.viewWillLayoutSubviews()
@@ -463,22 +183,4 @@ class TableViewController: UITableViewController {
 //        }
 //    }
     
-}
-
-extension Double {
-    func hasDecimalPart() -> Bool {
-        return self % 1 != 0
-    }
-    
-    func decimalPartLength() -> Int {
-        let str = String(self)
-        if str.characters.last == "0" {
-            return 0
-        }
-        let separators = NSCharacterSet(charactersInString:",.")
-        guard let range = str.rangeOfCharacterFromSet(separators) else {
-            return 0
-        }
-        return range.startIndex.distanceTo(str.endIndex) - 1
-    }
 }
