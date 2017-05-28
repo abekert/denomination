@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		93D460DC1EDABC3100D60550 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D460DB1EDABC3100D60550 /* MainViewController.swift */; };
 		9D5E14AF1D14B96400736E33 /* PaddingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5E14AE1D14B96400736E33 /* PaddingTextField.swift */; };
 		9D8ABDEF1D154D5C00760D51 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8ABDEE1D154D5C00760D51 /* StringExtensions.swift */; };
 		9D8ABDF21D15521700760D51 /* CurrenciesUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8ABDF11D15521700760D51 /* CurrenciesUpdater.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		93D460DB1EDABC3100D60550 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = "Source/View Controllers/MainViewController.swift"; sourceTree = "<group>"; };
 		9D5E14AE1D14B96400736E33 /* PaddingTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaddingTextField.swift; path = Source/Extensions/PaddingTextField.swift; sourceTree = "<group>"; };
 		9D8ABDEE1D154D5C00760D51 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExtensions.swift; path = Source/Extensions/StringExtensions.swift; sourceTree = "<group>"; };
 		9D8ABDF11D15521700760D51 /* CurrenciesUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrenciesUpdater.swift; path = Source/Currencies/CurrenciesUpdater.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 		9D8C1F8C1D148D230072F349 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				93D460DB1EDABC3100D60550 /* MainViewController.swift */,
 				9D8C1F891D148CDF0072F349 /* TableViewController.swift */,
 				9DF8AABA1DFC0955009D17A0 /* Money Converter View */,
 			);
@@ -252,6 +255,7 @@
 				9D5E14AF1D14B96400736E33 /* PaddingTextField.swift in Sources */,
 				9DF8AAB71DFC0921009D17A0 /* MoneyConverterView.swift in Sources */,
 				9D8ABDEF1D154D5C00760D51 /* StringExtensions.swift in Sources */,
+				93D460DC1EDABC3100D60550 /* MainViewController.swift in Sources */,
 				9D8C1F8A1D148CDF0072F349 /* TableViewController.swift in Sources */,
 				9D8ABDF21D15521700760D51 /* CurrenciesUpdater.swift in Sources */,
 				9DD7CD361DFB299600752957 /* Currency.swift in Sources */,
