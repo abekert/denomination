@@ -11,6 +11,19 @@ extension Double {
         
         return str.decimalPartLength()
     }
+    
+    func floor(to places: UInt) -> Double {
+        let divisor = Double(10.pow(power: places))
+        return Double(Int(self * divisor)) / divisor
+    }
+}
+
+extension Int {
+    func pow(power:UInt) -> Int {
+        var answer : Int = 1
+        for _ in 1...power { answer *= self }
+        return answer
+    }
 }
 
 extension String {

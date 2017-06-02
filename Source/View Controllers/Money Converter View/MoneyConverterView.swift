@@ -84,13 +84,15 @@ class MoneyConverterView: UIView {
             return
         }
         
-        let formatter = textField === oldMoneyText ? oldMoneyFormatter : newMoneyFormatter
-        
         operationResult.title = ""
         
         let arguments = ParseResult(inputString: inputText)
         let result = arguments.calculate()
-        textField.text = formatter.string(from: NSNumber(value: result))
+        if textField === oldMoneyText {
+            setOldMoney(value: result)
+        } else {
+            setNewMoney(value: result)
+        }
     }
 
     // MARK: - Text Fields
@@ -164,7 +166,11 @@ class MoneyConverterView: UIView {
     
     @discardableResult
     private func setNewMoney(value: Double) -> Bool {
-        if let stringValue = newMoneyFormatter.string(from: NSNumber(value: value)) {
+        guard let formatter = newMoneyFormatter.copy() as? NumberFormatter else {
+            return false
+        }
+        formatter.minimumFractionDigits = value.floor(to: 2).decimalPartLength() > 0 ? 2 : 0
+        if let stringValue = formatter.string(from: NSNumber(value: value)) {
             newMoneyText.text = stringValue
             return true
         }
