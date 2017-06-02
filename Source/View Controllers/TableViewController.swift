@@ -9,10 +9,6 @@
 import UIKit
 
 class TableViewController: UITableViewController {
-    @IBInspectable
-    var topGradientColor: UIColor = UIColor.white
-    @IBInspectable
-    var bottomGradientColor: UIColor = UIColor.white
     
     @IBOutlet weak var usdCell: CurrencyCell!
     @IBOutlet weak var eurCell: CurrencyCell!
@@ -30,7 +26,6 @@ class TableViewController: UITableViewController {
         
         UIApplication.shared.statusBarStyle = .lightContent
         initMoneyFormatters()
-        setTableViewBackgroundGradient(sender: self, topColor: topGradientColor, bottomColor: bottomGradientColor)
         initCurrenciesCells()
     }
 
@@ -48,21 +43,6 @@ class TableViewController: UITableViewController {
         newMoneyFormatter.usesGroupingSeparator = true
         newMoneyFormatter.groupingSeparator = "\u{2008}"
         newMoneyFormatter.groupingSize = 3
-    }
-    
-    var gradientLayer: CAGradientLayer!
-    func setTableViewBackgroundGradient(sender: UITableViewController, topColor: UIColor, bottomColor: UIColor) {
-        let gradientBackgroundColors = [topColor.cgColor, bottomColor.cgColor]
-        let gradientLocations = [NSNumber(value: 0), NSNumber(value: 1.0)]
-        
-        gradientLayer = CAGradientLayer()
-        gradientLayer.colors = gradientBackgroundColors
-        gradientLayer.locations = gradientLocations
-        
-        gradientLayer.frame = sender.tableView.bounds
-        let backgroundView = UIView(frame: sender.tableView.bounds)
-        backgroundView.layer.insertSublayer(gradientLayer, at: 0)
-        sender.tableView.backgroundView = backgroundView
     }
     
     func initCurrenciesCells() {
@@ -164,6 +144,7 @@ class TableViewController: UITableViewController {
                 guard let moneyConverterView = MoneyConverterView.configuredView() else {
                     return firstCell
                 }
+                firstCell.selectionStyle = .none
                 moneyConverterView.oldMoneyFormatter = oldMoneyFormatter
                 moneyConverterView.newMoneyFormatter = newMoneyFormatter
                 firstCell.contentView.addSubview(moneyConverterView)
@@ -174,13 +155,5 @@ class TableViewController: UITableViewController {
         
         return super.tableView(tableView, cellForRowAt: indexPath)
     }
-    
-//    override func viewWillLayoutSubviews() {
-//        super.viewWillLayoutSubviews()
-//        if let layer = gradientLayer {
-//            print("layer frame")
-//            layer.frame = tableView.bounds
-//        }
-//    }
     
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		93D460DC1EDABC3100D60550 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D460DB1EDABC3100D60550 /* MainViewController.swift */; };
+		93D460DE1EDABFE200D60550 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D460DD1EDABFE200D60550 /* GradientView.swift */; };
 		9D5E14AF1D14B96400736E33 /* PaddingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5E14AE1D14B96400736E33 /* PaddingTextField.swift */; };
 		9D8ABDEF1D154D5C00760D51 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8ABDEE1D154D5C00760D51 /* StringExtensions.swift */; };
 		9D8ABDF21D15521700760D51 /* CurrenciesUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8ABDF11D15521700760D51 /* CurrenciesUpdater.swift */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		93D460DB1EDABC3100D60550 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = "Source/View Controllers/MainViewController.swift"; sourceTree = "<group>"; };
+		93D460DD1EDABFE200D60550 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GradientView.swift; path = Toolkit/GradientView.swift; sourceTree = "<group>"; };
 		9D5E14AE1D14B96400736E33 /* PaddingTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaddingTextField.swift; path = Source/Extensions/PaddingTextField.swift; sourceTree = "<group>"; };
 		9D8ABDEE1D154D5C00760D51 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExtensions.swift; path = Source/Extensions/StringExtensions.swift; sourceTree = "<group>"; };
 		9D8ABDF11D15521700760D51 /* CurrenciesUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrenciesUpdater.swift; path = Source/Currencies/CurrenciesUpdater.swift; sourceTree = "<group>"; };
@@ -69,6 +71,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		93D460DF1EDABFE900D60550 /* Toolkit */ = {
+			isa = PBXGroup;
+			children = (
+				93D460DD1EDABFE200D60550 /* GradientView.swift */,
+			);
+			name = Toolkit;
+			sourceTree = "<group>";
+		};
 		9D8ABDED1D154D3D00760D51 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +148,7 @@
 				9D8C1F771D14891A0072F349 /* AppDelegate.swift */,
 				9D8ABDED1D154D3D00760D51 /* Extensions */,
 				9D8C1F8C1D148D230072F349 /* View Controllers */,
+				93D460DF1EDABFE900D60550 /* Toolkit */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -253,6 +264,7 @@
 				9DDCAE841E0E73AF00C0FA2F /* Parser.swift in Sources */,
 				9DD7CD381DFB29CB00752957 /* RatesHistory.swift in Sources */,
 				9D5E14AF1D14B96400736E33 /* PaddingTextField.swift in Sources */,
+				93D460DE1EDABFE200D60550 /* GradientView.swift in Sources */,
 				9DF8AAB71DFC0921009D17A0 /* MoneyConverterView.swift in Sources */,
 				9D8ABDEF1D154D5C00760D51 /* StringExtensions.swift in Sources */,
 				93D460DC1EDABC3100D60550 /* MainViewController.swift in Sources */,

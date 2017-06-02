@@ -9,8 +9,26 @@
 import UIKit
 
 class MainViewController: UIViewController {
-
+    
+    let topColor = UIColor(rgbValue: 0xD49A84)
+    let bottomColor = UIColor(rgbValue: 0xAA7062)
+    
+    @IBOutlet var backgroundView: GradientView!
+    @IBOutlet weak var statusBarView: GradientView!
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent;
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        backgroundView.gradientColors = [topColor, bottomColor]
+        statusBarView.gradientColors = [topColor, topColor, topColor.withAlphaComponent(0)]
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        statusBarView.isHidden = self.prefersStatusBarHidden
     }
 }
