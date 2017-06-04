@@ -1,0 +1,56 @@
+{
+  "stickers" : [
+    {
+      "filename" : "1 копейка.sticker"
+    },
+    {
+      "filename" : "2 копейки.sticker"
+    },
+    {
+      "filename" : "5 копеек.sticker"
+    },
+    {
+      "filename" : "10 копеек.sticker"
+    },
+    {
+      "filename" : "20 копеек.sticker"
+    },
+    {
+      "filename" : "50 копеек.sticker"
+    },
+    {
+      "filename" : "1 рубль.sticker"
+    },
+    {
+      "filename" : "2 рубля.sticker"
+    },
+    {
+      "filename" : "5 рублей.sticker"
+    },
+    {
+      "filename" : "10 рублей.sticker"
+    },
+    {
+      "filename" : "20 рублей.sticker"
+    },
+    {
+      "filename" : "50 рублей.sticker"
+    },
+    {
+      "filename" : "100 рублей.sticker"
+    },
+    {
+      "filename" : "200 рублей.sticker"
+    },
+    {
+      "filename" : "500 рублей.sticker"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  },
+  "properties" : {
+    "grid-size" : "small"
+  }
+}
